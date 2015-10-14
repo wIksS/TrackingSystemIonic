@@ -1,0 +1,12 @@
+<ion-view view-title="Add students to group">
+    <ion-content>
+        <div class="list">
+            <a class="item item-avatar item-icon-right" href="#" ng-repeat="student in students">
+                <img src="../images/unknown.jpg">
+                <h2>{{student.UserName}}</h2>
+                <p>Is not in your group, click to add.</p>
+                <button class="button button-icon icon ion-plus-circled" ng-click='addStudentToGroup(student.UserName)'></button>
+            </a>
+        </div>    
+    </ion-content>
+</ion-view>

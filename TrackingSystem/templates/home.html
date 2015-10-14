@@ -1,0 +1,21 @@
+<ion-view view-title="TrackingSystem">
+    <ion-content>
+        <div class="headers">
+            <span class="">SAFE <br> TRAVEL</span>
+            <span class="subtitle">and excursions</span>
+            <a href="#/app/register" ng-hide='isLogged' class="swiper_read_more">
+                Register to start
+            </a>
+            <div class="home-button">
+                <a class='swiper_read_more' ng-hide='!isLogged' ng-click='startExcursion()'>
+                    Start excursion
+                </a>
+            </div>
+            <div class="home-button">
+                <a class='swiper_read_more' ng-hide='!isLogged' ng-click='stopExcursion()'>
+                    Stop excursion
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

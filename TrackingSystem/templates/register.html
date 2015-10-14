@@ -1,0 +1,26 @@
+<ion-view view-title="Register">
+  <ion-content>
+      <form ng-submit="register(user)">
+          <div class="list">
+              <label class="item item-input">
+                  <span class="input-label">Email</span>
+                  <input type="text" required="" ng-model="user.email" ng-minlength="3">
+              </label>
+              <label class="item item-input">
+                  <span class="input-label">Password</span>
+                  <input type="password" required ng-model="user.password">
+              </label>
+              <label class="item item-input">
+                  <span class="input-label">Confirm Password</span>
+                  <input type="password" required ng-model="user.confirmpassword">
+              </label>
+              <ion-toggle ng-model="user.isTeacher" toggle-class="toggle-calm">
+                  Is teacher
+              </ion-toggle>
+              <label class="item">
+                  <button class="button button-block button-positive" type="submit">Register</button>
+              </label>
+          </div>
+      </form>
+    </ion-content>
+</ion-view>
