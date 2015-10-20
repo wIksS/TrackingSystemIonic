@@ -10,6 +10,8 @@ var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives'
             .config(function ($ionicConfigProvider)
             {
                 $ionicConfigProvider.tabs.position('bottom');
+                $ionicConfigProvider.tabs.style('standard').position('bottom');
+                $ionicConfigProvider.navBar.alignTitle('center').positionPrimaryButtons('left');
             })
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function ()
