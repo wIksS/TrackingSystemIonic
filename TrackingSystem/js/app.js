@@ -14,26 +14,34 @@ var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives'
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function ()
         {
-            navigator.notification.alert(window.plugins + cordova.plugins);
-            window.navigator.geolocation.getCurrentPosition(function (location)
+            // Called when background mode has been activated
+            if (cordova.plugins && cordova.plugins.backgroundMode)
             {
-                navigator.notification.alert(location);
-            });
+                cordova.plugins.backgroundMode.onactivate = function ()
+                {
+                    setTimeout(function ()
+                    {
+                        // Modify the currently displayed notification
+                        cordova.plugins.backgroundMode.configure({
+                            text: 'Running in background for more than 5s now.'
+                        });
 
-            navigator.notification.alert(window.plugins.backgroundGeoLocation);
+                    }, 5000);
+                }
+            }
 
-        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-        // for form inputs)
-        if (window.cordova && window.cordova.plugins.Keyboard) {
-          cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-          cordova.plugins.Keyboard.disableScroll(true);
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if (window.cordova && window.cordova.plugins.Keyboard) {
+              cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+              cordova.plugins.Keyboard.disableScroll(true);
     
-        }
-        if (window.StatusBar) {
-          // org.apache.cordova.statusbar required
-          StatusBar.styleDefault();
-        }
-      });
+            }
+            if (window.StatusBar) {
+              // org.apache.cordova.statusbar required
+              StatusBar.styleDefault();
+            }
+        });
     })
 
 .config(function($stateProvider, $urlRouterProvider) {

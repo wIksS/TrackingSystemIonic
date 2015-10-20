@@ -3,9 +3,15 @@ app.controller('ExcursionCtrl', function ($scope, $ionicPopup,locationService,$s
 {
     var isInPrompt = false;
     var interval = {};
+    var id = 102;
 
     $scope.startExcursion = function ()
     {
+        if (cordova.plugins && cordova.plugins.backgroundMode)
+        {
+            cordova.plugins.backgroundMode.enable();
+        }
+
         interval = setInterval(function ()
         {
             navigator.geolocation.getCurrentPosition(
@@ -14,14 +20,26 @@ app.controller('ExcursionCtrl', function ($scope, $ionicPopup,locationService,$s
                        locationService.addLocation(position)
                            .then(function (data)
                            {
+
                                console.log(data);
                                if (data.length > 0)
                                {
+                                   navigator.notification.beep(3);
+
                                    for (var key in data)
                                    {
                                        if (!isInPrompt) {
                                            var dist = data[key];
                                            isInPrompt = true;
+
+                                           if (window.localNotification && localNotification)
+                                           {
+                                               localNotification.add(id, {
+                                                   seconds: 0,
+                                                   message: 'You are ' + dist.Distance + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map',
+                                                   badge: 1
+                                               });
+                                           }
 
                                            var alertPopup = $ionicPopup.confirm({
                                                title: 'Distance',
@@ -63,5 +81,9 @@ app.controller('ExcursionCtrl', function ($scope, $ionicPopup,locationService,$s
     $scope.stopExcursion = function ()
     {
         clearInterval(interval);
+        if (cordova.plugins && cordova.plugins.backgroundMode)
+        {
+            cordova.plugins.backgroundMode.disable();
+        }
     }
 });
