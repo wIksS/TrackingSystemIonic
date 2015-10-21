@@ -16,24 +16,55 @@ var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives'
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function ()
         {
-            // Called when background mode has been activated
-            if (cordova.plugins && cordova.plugins.backgroundMode)
-            {
-                cordova.plugins.backgroundMode.onactivate = function ()
-                {
-                    setTimeout(function ()
-                    {
-                        // Modify the currently displayed notification
-                        cordova.plugins.backgroundMode.configure({
-                            text: 'Running in background for more than 5s now.'
-                        });
+            window.navigator.geolocation.getCurrentPosition(function (location) {
+                console.log('Location from Phonegap');
+            });
 
-                    }, 5000);
-                }
+            var bgGeo = backgroundGeoLocation;//window.BackgroundGeolocation;
+            navigator.notification.alert(bgGeo);
+            navigator.notification.alert(window.BackgroundGeolocation);
+
+            var yourAjaxCallback = function (response) {
+
+                bgGeo.finish();
+            };
+
+            /**
+            * This callback will be executed every time a geolocation is recorded in the background.
+            */
+            var callbackFn = function (location) {
+                console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
+
+                localNotification.add(150, {
+                    seconds: 0,
+                    message: '[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude,
+                    badge: 1
+                });
+
+                navigator.notification.beep(3);
+                yourAjaxCallback.call(this);
+            };
+
+            var failureFn = function (error) {
+                console.log('BackgroundGeoLocation error');
             }
 
-            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-            // for form inputs)
+            // BackgroundGeoLocation is highly configurable.
+            bgGeo.configure(callbackFn, failureFn, {               
+                desiredAccuracy: 10,
+                stationaryRadius: 20,
+                distanceFilter: 30,
+                locationTimeout:0,
+                notificationTitle: 'Background tracking', // <-- android only, customize the title of the notification
+                notificationText: 'ENABLED', // <-- android only, customize the text of the notification
+                activityType: 'AutomotiveNavigation',
+                debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+                stopOnTerminate: false // <-- enable this to clear background location settings when the app terminates
+            });
+
+            // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
+            bgGeo.start();
+
             if (window.cordova && window.cordova.plugins.Keyboard) {
               cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
               cordova.plugins.Keyboard.disableScroll(true);

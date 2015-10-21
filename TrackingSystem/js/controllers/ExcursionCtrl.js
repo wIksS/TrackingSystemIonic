@@ -14,14 +14,29 @@ app.controller('ExcursionCtrl', function ($scope, $ionicPopup,locationService,$s
 
         interval = setInterval(function ()
         {
+            localNotification.add(id + 1, {
+                seconds: 0,
+                message: '\n Click OK to show on map',
+                badge: 1
+            });
             navigator.geolocation.getCurrentPosition(
                    function (position)
                    {
+                       localNotification.add(id + 2, {
+                           seconds: 0,
+                           message: 'v get current pos',
+                           badge: 1
+                       });
                        locationService.addLocation(position)
                            .then(function (data)
                            {
 
                                console.log(data);
+                               localNotification.add(id + 3, {
+                                   seconds: 0,
+                                   message: 'v datata',
+                                   badge: 1
+                               });
                                if (data.length > 0)
                                {
                                    navigator.notification.beep(3);

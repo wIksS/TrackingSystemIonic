@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-mauron85-background-geolocation"
+        version="0.6.0">
+    <name>CDVBackgroundGeoLocation</name>
+    <description>Cordova Background GeoLocation Plugin</description>
+    <license>Apache-2.0</license>
+    <keywords>cordova,phonegap,background geolocation</keywords>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
+
+    <js-module src="www/backgroundGeoLocation.js" name="backgroundGeoLocation">
+        <clobbers target="backgroundGeoLocation"/>
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <source-file src="src/android/Config.java" target-dir="src/com/marianhello/cordova/bgloc"/>
+        <source-file src="src/android/Constant.java" target-dir="src/com/marianhello/cordova/bgloc"/>
+        <source-file src="src/android/ServiceProvider.java" target-dir="src/com/marianhello/cordova/bgloc"/>
+        <source-file src="src/android/BackgroundGpsPlugin.java" target-dir="src/com/tenforwardconsulting/cordova/bgloc"/>
+        <source-file src="src/android/AbstractLocationService.java" target-dir="src/com/tenforwardconsulting/cordova/bgloc"/>
+        <source-file src="src/android/DistanceFilterLocationService.java" target-dir="src/com/tenforwardconsulting/cordova/bgloc"/>
+        <source-file src="src/android/FusedLocationService.java" target-dir="src/com/tenforwardconsulting/cordova/bgloc"/>
+        <source-file src="src/android/LocationConverter.java" target-dir="src/com/tenforwardconsulting/cordova/bgloc"/>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <service android:enabled="true" android:name="com.tenforwardconsulting.cordova.bgloc.DistanceFilterLocationService"
+                     android:process=":remote">
+                <intent-filter>
+                    <action android:name="com.marianhello.cordova.bgloc.communication.REQUEST_PROCESSED"/>
+                </intent-filter>
+            </service>
+
+            <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+            <service android:enabled="true" android:name="com.tenforwardconsulting.cordova.bgloc.FusedLocationService"
+                     android:process=":remote">
+                <intent-filter>
+                    <action android:name="com.marianhello.cordova.bgloc.communication.REQUEST_PROCESSED"/>
+                </intent-filter>
+            </service>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.WAKE_LOCK"/>
+        </config-file>
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BackgroundGeoLocation">
+                <param name="android-package" value="com.tenforwardconsulting.cordova.bgloc.BackgroundGpsPlugin"/>
+            </feature>
+        </config-file>
+        <framework src="com.google.android.gms:play-services-location:+" />
+    </platform>
+
+    <platform name="ios">
+        <!-- required background modes:  App registers for location updates -->
+
+        <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
+            <string>This app requires background location tracking</string>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="UIBackgroundModes">
+            <array>
+                <string>location</string>
+            </array>
+        </config-file>
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="BackgroundGeoLocation">
+                <param name="ios-package" value="CDVBackgroundGeoLocation"/>
+            </feature>
+        </config-file>
+        <framework src="AudioToolbox.framework" weak="true" />
+        <framework src="AVFoundation.framework" weak="true" />
+        <source-file src="src/ios/CDVBackgroundGeoLocation.m" />
+        <header-file src="src/ios/CDVBackgroundGeoLocation.h" />
+     </platform>
+
+	<!-- wp8 -->
+	<platform name="wp8">
+		<config-file target="config.xml" parent="/*">
+			<feature name="BackgroundGeoLocation">
+				<param name="wp-package" value="BackgroundGeoLocation" onload="true" />
+				<param name="onload" value="true" />
+			</feature>
+		</config-file>
+
+		<config-file target="Properties/WMAppManifest.xml" parent="/Deployment/App/Tasks/DefaultTask">
+			<BackgroundExecution>
+				<ExecutionType Name="LocationTracking" />
+			</BackgroundExecution>
+		</config-file>
+
+		<config-file target="Properties/WMAppManifest.xml" parent="/Deployment/App/Capabilities">
+			<Capability Name="ID_CAP_LOCATION" />
+		</config-file>
+		<source-file src="src/wp8/BackgroundGeoLocation.cs" />
+		<source-file src="src/wp8/BackgroundGeoLocationOptions.cs" />
+		<source-file src="src/wp8/DebugNotifier.cs" />
+		<source-file src="src/wp8/ExtensionMethods.cs" />
+        <source-file src="src/wp8/GeolocatorWrapper.cs" />
+        <source-file src="src/wp8/GeolocatorWrapperPositionChangedEventArgs.cs" />
+        <source-file src="src/wp8/IBackgroundGeoLocation.cs" />
+        <source-file src="src/wp8/UpdateScaledDistanceFilterResult.cs" />
+        <source-file src="src/wp8/Position.cs" />
+        <source-file src="src/wp8/PositionPath.cs" />
+        <source-file src="src/wp8/PostionUpdateDebugData.cs" />
+        <source-file src="src/wp8/StationaryManager.cs" />
+	</platform>
+
+</plugin>
