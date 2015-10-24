@@ -1,69 +1,53 @@
-app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading) {
-    $scope.data = { "ImageURI" :  "Select Image" };
-    $scope.takePicture = function() {
-        var options = {
-            quality: 50,
-            destinationType: Camera.DestinationType.FILE_URL,
-            sourceType: Camera.PictureSourceType.CAMERA
-        };
-        $cordovaCamera.getPicture(options).then(
-          function(imageData) {
-              $scope.picData = imageData;
-              $scope.ftLoad = true;
-              //$localstorage.set('fotoUp', imageData);
-              $ionicLoading.show({template: 'Foto acquisita...', duration:500});
-          },
-          function(err){
-              $ionicLoading.show({template: 'Errore di caricamento...', duration:500});
-          })
+app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, identity, usersService)
+{
+    $scope.data = { "ImageURI": "Select Image" };
+    $scope.profilePic = null;
+    var user = identity.getUser();
+    
+    $scope.getImage = function()
+    {
+        // Retrieve image file location from specified source
+        navigator.camera.getPicture(uploadPhoto, function (message)
+        {
+            alert('get picture failed');
+        }, {
+            quality: 30,
+            destinationType: navigator.camera.DestinationType.FILE_URI,
+            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+            targetWidth: 100, targetHeight: 100,
+        }
+        );
+
     }
 
-    $scope.selectPicture = function() { 
-        var options = {
-            quality: 50,
-            destinationType: Camera.DestinationType.FILE_URL,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-        };
+    function uploadPhoto(imageURI)
+    {
+        var img = $('#hidden-image');
+        img.load(function ()
+        {
+            $(img).imageBlob().ajax('http://localhost:63810/api/file/UploadFile', {
+                complete: function (jqXHR, textStatus)
+                {
+                    console.log('Uploaded pic');
+                },
+                headers: { "Authorization": "Bearer " + user.token },
+            });
+        })
 
-        $cordovaCamera.getPicture(options).then(
-          function(imageURI) {
-              window.resolveLocalFileSystemURL(imageURI, function (fileEntry)
-              {
-                  debugger;
-                  $scope.picData = fileEntry.nativeURL;
-                  $scope.ftLoad = true;
-                  var image = document.getElementById('myImage');
-                  image.src = fileEntry.nativeURL;
-                  $scope.$apply();
-              }, function (err)
-              {
-                  navigator.notification.alert(err);
-              });
+        $scope.profilePic = imageURI;
+        $scope.$apply();
+    }
 
-              $ionicLoading.show({template: 'Foto acquisita...', duration:500});
-          },
-          function(err){
-              $ionicLoading.show({template: 'Errore di caricamento...', duration:500});
-          })
-    };
+    function win(r)
+    {
+        console.log("Code = " + r.responseCode);
+        console.log("Response = " + r.response);
+        console.log("Sent = " + r.bytesSent);
+        alert(r.response);
+    }
 
-    $scope.uploadPicture = function() {
-        $ionicLoading.show({template: 'Saving the photo'});
-        var fileURL = $scope.picData;
-        //var options = new FileUploadOptions();
-        //options.fileKey = "file";
-        //options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-        //options.mimeType = "image/jpeg";
-        //options.chunkedMode = true;
-
-        //var params = {};
-        //params.value1 = "someparams";
-        //params.value2 = "otherparams";
-
-        //options.params = params;
-
-        //var ft = new FileTransfer();
-        //ft.upload(fileURL, encodeURI("http://www.yourdomain.com/upload.php"), viewUploadedPictures, function(error) {$ionicLoading.show({template: 'Connecting to server'});
-        //    $ionicLoading.hide();}, options);
+    function fail(error)
+    {
+        alert("An error has occurred: Code = " + error.code);
     }
 })

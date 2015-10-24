@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives', 'ngCordova'])
-            .constant('baseUrl', 'http://trackingsystemserver.apphb.com')//http://localhost:63810')
+            .constant('baseUrl', 'http://localhost:63810')//http://trackingsystemserver.apphb.com')//http://localhost:63810')
 
             .config(function ($ionicConfigProvider)
             {

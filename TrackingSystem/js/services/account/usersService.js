@@ -27,5 +27,9 @@ app.factory('usersService', function (identity, baseUrl, httpRequester)
 
             return httpRequester.customAuthorizedUrlData('DELETE', url + '/api/account/DeleteUser', data);           
         },
+        getUserImage: function (user, identity)
+        {
+            return httpRequester.getAuthorized(url + '/api/File/' + user, identity);
+        }
     }
 });

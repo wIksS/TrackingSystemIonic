@@ -1,4 +1,4 @@
-<ion-modal-view ng-controller="CameraCtrl">
+<ion-modal-view ng-controller="CameraCtrl" >
     <ion-header-bar>
         <h1 class="title">Profile</h1>
         <div class="buttons">
@@ -9,13 +9,14 @@
         <div id="profile-bg"></div>
         <div id="content">
             <div id="profile-info">
-                <img id="profile-image" src="../images/unknown.jpg">
+                <img ng-hide="!!profilePic" id="profile-image" src="../images/unknown.jpg">
+                <img ng-hide="!profilePic" id="profile-image" src="{{profilePic}}">
                 <h3 id="profile-name">{{username}}</h3>
                 <span id="profile-description">
-                    <button class="button icon-left ion-ios-camera button-positive" ng-click="selectPicture()">Change picture</button>
+                    <button class="button icon-left ion-ios-camera button-positive" ng-click="getImage()">Change picture</button>
                 </span>
             </div>
-        </div>
-        {{picData}}
-     </ion-content>
+        </div>       
+        <img id="hidden-image" class="hidden" src="{{profilePic}}">
+    </ion-content>
 </ion-modal-view>

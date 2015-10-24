@@ -2,6 +2,7 @@
   "CorePlugins": [
     "cordova-plugin-battery-status",
     "cordova-plugin-camera",
+    "cordova-plugin-console",
     "cordova-plugin-contacts",
     "cordova-plugin-device",
     "cordova-plugin-device-motion",
@@ -18,7 +19,6 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "cordova-plugin-vibration",
-    "cordova-plugin-whitelist",
-    "cordova-plugin-crosswalk-webview@1.2.0"
+    "cordova-plugin-whitelist"
   ]
 }

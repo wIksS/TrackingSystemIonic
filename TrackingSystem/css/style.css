@@ -177,3 +177,8 @@ map {
         bottom: 5px;
         color: #888;
       }
+
+
+.hidden{
+    display:none;
+}

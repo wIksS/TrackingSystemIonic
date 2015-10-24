@@ -258,6 +258,7 @@
     <Content Include="lib\ionic\scss\_util.scss" />
     <Content Include="lib\ionic\scss\_variables.scss" />
     <Content Include="lib\ionic\version.json" />
+    <Content Include="lib\jquery-image-blob.min.js" />
     <Content Include="lib\jquery.js" />
     <Content Include="lib\ng-cordova.js" />
     <Content Include="Plugins\cordova-plugin-background-geolocation-master\.gitignore" />

@@ -2,7 +2,7 @@
  * Created by Виктор on 27.9.2014 г..
  */
 
-app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout, identity, auth, identity, $state, errorHandler, locationService, groupService, $ionicHistory)
+app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout, identity, auth, identity, $state, errorHandler, locationService, groupService, $ionicHistory,usersService)
 {
     var user = identity.getUser();
     $scope.isLogged = identity.isLogged();
@@ -71,7 +71,17 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
                     var user = identity.getUser();
                     $scope.username = user.username;
                     $scope.isAdmin = identity.isAdmin();
-                    $scope.isTeacher = identity.isInRole('Teacher');                    
+                    $scope.isTeacher = identity.isInRole('Teacher');
+
+                    usersService.getUserImage(user.username, user.token)
+                     .then(function (data)
+                     {
+                         sessionStorage.setItem('profilePicture',data);
+                         //$("#profile-image").attr("src", "data:image/png;base64," + data);
+                     }, function (err)
+                     {
+                         console.log(err);
+                     });
 
                     $scope.closeModal(1);
                     $state.go('app.home');
