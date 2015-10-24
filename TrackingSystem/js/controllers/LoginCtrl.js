@@ -11,25 +11,37 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
     $scope.user = user || {};
     $scope.username = user.username;
     $scope.isHome = $ionicHistory.currentStateName().indexOf('home') > 0;
+
     // Create the login modal that we will use later
     $ionicModal.fromTemplateUrl('templates/login.html', {
+        id:1,
         scope: $scope
     }).then(function (modal)
     {
-        $scope.modal = modal;
+        $scope.modal1 = modal;
     });
 
     // Triggered in the login modal to close it
-    $scope.closeLogin = function ()
+    $scope.closeModal = function (id)
     {
-        $scope.modal.hide();
+        if (id == 1) $scope.modal1.hide();
+        else $scope.modal2.hide();
     };
 
     // Open the login modal
-    $scope.login = function ()
+    $scope.openModal = function (id)
     {
-        $scope.modal.show();
+        if (id == 1) $scope.modal1.show();
+        else $scope.modal2.show();
     };
+
+    $ionicModal.fromTemplateUrl('templates/profile.html', {
+        id: 2,
+        scope: $scope
+    }).then(function (modal)
+    {
+        $scope.modal2 = modal;
+    });
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
         user = identity.getUser();
@@ -61,7 +73,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
                     $scope.isAdmin = identity.isAdmin();
                     $scope.isTeacher = identity.isInRole('Teacher');                    
 
-                    $scope.closeLogin();
+                    $scope.closeModal(1);
                     $state.go('app.home');
                     $scope.$apply();
                 });               

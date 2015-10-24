@@ -177,6 +177,7 @@
     <Content Include="images\unknown.jpg" />
     <Content Include="index.html" />
     <Content Include="js\app.js" />
+    <Content Include="js\controllers\CameraCtrl.js" />
     <Content Include="js\controllers\ExcursionCtrl.js" />
     <Content Include="js\controllers\GroupCtrl.js" />
     <Content Include="js\controllers\LoginCtrl.js" />
@@ -636,6 +637,7 @@
     <Content Include="templates\map.html" />
     <Content Include="templates\menu.html" />
     <Content Include="templates\playlists.html" />
+    <Content Include="templates\profile.html" />
     <Content Include="templates\register.html" />
     <Content Include="templates\students.html" />
     <Content Include="templates\users.html" />

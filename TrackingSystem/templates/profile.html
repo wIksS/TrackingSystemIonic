@@ -1,0 +1,21 @@
+<ion-modal-view ng-controller="CameraCtrl">
+    <ion-header-bar>
+        <h1 class="title">Profile</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeModal(2)">Close</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div id="profile-bg"></div>
+        <div id="content">
+            <div id="profile-info">
+                <img id="profile-image" src="../images/unknown.jpg">
+                <h3 id="profile-name">{{username}}</h3>
+                <span id="profile-description">
+                    <button class="button icon-left ion-ios-camera button-positive" ng-click="selectPicture()">Change picture</button>
+                </span>
+            </div>
+        </div>
+        {{picData}}
+     </ion-content>
+</ion-modal-view>
