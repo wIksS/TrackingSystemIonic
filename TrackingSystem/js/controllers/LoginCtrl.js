@@ -73,16 +73,6 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
                     $scope.isAdmin = identity.isAdmin();
                     $scope.isTeacher = identity.isInRole('Teacher');
 
-                    usersService.getUserImage(user.username, user.token)
-                     .then(function (data)
-                     {
-                         sessionStorage.setItem('profilePicture',data);
-                         //$("#profile-image").attr("src", "data:image/png;base64," + data);
-                     }, function (err)
-                     {
-                         console.log(err);
-                     });
-
                     $scope.closeModal(1);
                     $state.go('app.home');
                     $scope.$apply();

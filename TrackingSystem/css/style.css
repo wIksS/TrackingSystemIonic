@@ -133,7 +133,7 @@ map {
         color: #888;
       }
 
-      #profile-image {
+      .profile-image {
         display: block;
         border-radius: 100px;
         border: 1px solid #fff;
@@ -181,4 +181,8 @@ map {
 
 .hidden{
     display:none;
+}
+
+#upload-button{
+    height:50px;
 }

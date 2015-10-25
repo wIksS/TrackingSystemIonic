@@ -2,7 +2,7 @@
  * Created by Виктор on 27.9.2014 г..
  */
 
-app.controller('StudentGroupsCtrl',function ($scope, identity,errorHandler,studentsService) {
+app.controller('StudentGroupsCtrl',function ($scope, identity,errorHandler,studentsService,baseUrl) {
     var user = identity.getUser(),
         interval;
     $scope.isLogged = identity.isLogged();
@@ -10,6 +10,7 @@ app.controller('StudentGroupsCtrl',function ($scope, identity,errorHandler,stude
     $scope.isTeacher = identity.isInRole('Teacher');
     $scope.user = user || {};
     $scope.username = user.username;
+    $scope.url = baseUrl;
 
     $scope.$on('$routeChangeStart', function (next, current) {
         user = identity.getUser();

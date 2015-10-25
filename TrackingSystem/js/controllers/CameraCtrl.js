@@ -1,8 +1,8 @@
-app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, identity, usersService)
+app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, identity, usersService,baseUrl)
 {
+    $scope.url = baseUrl;
     $scope.data = { "ImageURI": "Select Image" };
     $scope.profilePic = null;
-    var user = identity.getUser();
     
     $scope.getImage = function()
     {
@@ -17,17 +17,34 @@ app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, id
             targetWidth: 100, targetHeight: 100,
         }
         );
+    }
 
+    $scope.takeImage = function ()
+    {
+        // Retrieve image file location from specified source
+        navigator.camera.getPicture(uploadPhoto, function (message)
+        {
+            alert('get picture failed');
+        }, {
+            quality: 30,
+            destinationType: navigator.camera.DestinationType.FILE_URI,
+            sourceType: navigator.camera.PictureSourceType.CAMERA,
+            targetWidth: 100, targetHeight: 100,
+        }
+        );
     }
 
     function uploadPhoto(imageURI)
     {
+        var user = identity.getUser();
+
         var img = $('#hidden-image');
         img.load(function ()
         {
-            $(img).imageBlob().ajax('http://localhost:63810/api/file/UploadFile', {
+            $(img).imageBlob().ajax($scope.url + '/api/file/UploadFile', {
                 complete: function (jqXHR, textStatus)
                 {
+                    $(".profile-image").attr("src", $scope.url + "/api/File/" + user.username + "?timestamp=" + new Date().getTime());
                     console.log('Uploaded pic');
                 },
                 headers: { "Authorization": "Bearer " + user.token },
