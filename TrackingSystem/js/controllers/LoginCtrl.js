@@ -83,15 +83,21 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
             });
         };
 
-    $scope.logout = function(){
-        $location.path('/Login');
+    $scope.logout = function ()
+    {
+        if (!$scope.isLogged)
+        {
+            navigator.app.exitApp();
+            return;
+        }
+
         var user = identity.getUser();
         identity.logoutUser();
         $scope.isLogged = identity.isLogged();
         $scope.isAdmin = identity.isAdmin();
-        $scope.user.username = '';
-        $scope.user.password = '';
-        currentTeacher.deleteSessionTeacher();
-        notifier.success('Successful logout');
+
+        //notifier.success('Successful logout');
+        $state.go('app.home');
+
     };                                     
 });

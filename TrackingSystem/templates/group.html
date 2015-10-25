@@ -5,7 +5,7 @@
                 <h6>Min Distance</h6>
                 <label class="item item-input">
                     <i class="icon ion-arrow-up placeholder-icon"></i>
-                    <input type="text" placeholder="{{min}}">
+                    <input type="text" placeholder="{{min}}" ng-model="min">
                 </label>
             </div>
 
@@ -18,15 +18,15 @@
                 <h6>Max Distance</h6>
                 <label class="item item-input">
                     <i class="icon ion-arrow-down placeholder-icon"></i>
-                    <input type="text" placeholder="{{max}}" >
+                    <input type="text" placeholder="{{max}}" ng-model="max">
                 </label>
             </div>
         </div>
         <div class="list">
             <div class="item range range-positive">
-                <i class="icon ion-ios-sunny-outline"></i>
-                <input type="range" name="volume" min="min" max="max" value="currentDistance" ng-model="currentDistance">
-                <i class="icon ion-ios-sunny"></i>
+                <i class="icon ion-ios-undo-outline"></i>
+                <input type="range" name="volume" min="{{min}}" max="{{max}}" value="currentDistance" ng-model="currentDistance">
+                <i class="icon ion-ios-redo"></i>
             </div>
         </div>
         <div style="text-align:center">

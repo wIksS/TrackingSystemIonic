@@ -47,6 +47,9 @@ app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, id
                     $(".profile-image").attr("src", $scope.url + "/api/File/" + user.username + "?timestamp=" + new Date().getTime());
                     console.log('Uploaded pic');
                 },
+                error:function(err){
+                    console.log(err);
+                },
                 headers: { "Authorization": "Bearer " + user.token },
             });
         })

@@ -15,24 +15,34 @@
         </ion-header-bar>
         <ion-content class="dark">
             <ion-list>
-                <a ng-hide="isLogged" menu-close ng-click="login()" class="item">
+                <a menu-close href="#/" class="item item-icon-left">
+                    <i class="icon ion-android-home"></i>
+                    Home
+                </a>
+
+                <a ng-hide="isLogged" menu-close ng-click="openModal(1)" class="item item-icon-left">
+                    <i class="icon ion-person"></i>
                     Login
                 </a>
-                <a ng-hide="isLogged" nav-transition="slide-left-right" menu-close href="#/app/register" class="item">
+                <a ng-hide="isLogged" nav-transition="slide-left-right" menu-close href="#/app/register" class="item item-icon-left">
+                    <i class="icon ion-person-add"></i>
                     Register
                 </a>
 
                 <!--Teacher area-->
-                <a ng-hide="!isTeacher" menu-close href="#/app/students" class="item">
+                <a ng-hide="!isTeacher" menu-close href="#/app/students" class="item item-icon-left">
+                    <i class="icon ion-person-stalker"></i>
                     Students
                 </a>
 
-                <a ng-hide="!isTeacher" menu-close href="#/app/group" class="item">
+                <a ng-hide="!isTeacher" menu-close href="#/app/group" class="item item-icon-left">
+                    <i class="icon ion-android-settings"></i>                    
                     Group
                 </a>
 
                 <!--Admin area-->
-                <a ng-hide="!isAdmin" menu-close href="#/app/users" class="item">
+                <a ng-hide="!isAdmin" menu-close href="#/app/users" class="item item-icon-left">
+                    <i class="icon ion-person-stalker"></i>
                     Users
                 </a>
             </ion-list>
@@ -46,11 +56,11 @@
         <!-- Tab 1 content -->
     </ion-tab>
 
-    <ion-tab title="About" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+    <ion-tab title="Home" icon-on="ion-android-home" icon-off="ion-android-home" href="#/">
         <!-- Tab 2 content -->
     </ion-tab>
 
-    <ion-tab title="Settings" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+    <ion-tab title="Logout" icon-on="ion-power" icon-off="ion-power" ng-click="logout()">
         <!-- Tab 3 content -->
     </ion-tab>
 
@@ -64,11 +74,11 @@
         <!-- Tab 1 content -->
     </ion-tab>
 
-    <ion-tab title="About" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+    <ion-tab title="Home" icon-on="ion-android-home" icon-off="ion-android-home" href="#/">
         <!-- Tab 2 content -->
     </ion-tab>
 
-    <ion-tab title="Settings" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+    <ion-tab title="Logout" icon-on="ion-power" icon-off="ion-power" ng-click="logout()">
         <!-- Tab 3 content -->
     </ion-tab>
 

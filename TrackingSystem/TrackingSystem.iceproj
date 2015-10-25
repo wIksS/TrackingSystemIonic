@@ -39,6 +39,9 @@
     <Content Include="images\apple-touch-startup-image-640x920.png" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\bullet.png" />
+    <Content Include="images\camera.jpg">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="images\comments.png" />
     <Content Include="images\cordova.png" />
     <Content Include="images\favicon22.ico" />
@@ -174,7 +177,9 @@
     <Content Include="images\switch_13.png" />
     <Content Include="images\switch_13_active.png" />
     <Content Include="images\trans_black.png" />
-    <Content Include="images\unknown.jpg" />
+    <Content Include="images\unknown.jpg">
+      <Publish>True</Publish>
+    </Content>
     <Content Include="index.html" />
     <Content Include="js\app.js" />
     <Content Include="js\controllers\CameraCtrl.js" />
