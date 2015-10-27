@@ -1,38 +1,36 @@
 <ion-view view-title="Group">
     <ion-content>
-        <div class="row">
-            <div class="col col-40  list list-inset slider-border-input">
-                <h6>Min Distance</h6>
-                <label class="item item-input">
-                    <i class="icon ion-arrow-up placeholder-icon"></i>
-                    <input type="text" placeholder="{{min}}" ng-model="min">
-                </label>
-            </div>
-
-            <div class="col col-20 list list-inset slider-border-input">
-                <h6>Current Distance</h6>
-                <span>{{currentDistance}}</span>
-            </div>
-
-            <div class="col col-40  list list-inset slider-border-input">
-                <h6>Max Distance</h6>
-                <label class="item item-input">
-                    <i class="icon ion-arrow-down placeholder-icon"></i>
-                    <input type="text" placeholder="{{max}}" ng-model="max">
-                </label>
-            </div>
-        </div>
         <div class="list">
-            <div class="item range range-positive">
-                <i class="icon ion-ios-undo-outline"></i>
-                <input type="range" name="volume" min="{{min}}" max="{{max}}" value="currentDistance" ng-model="currentDistance">
-                <i class="icon ion-ios-redo"></i>
-            </div>
+            <!--<div class="item item-divider row">
+                <div class="col col-40">User name </div>
+                <div class="col col-40">Delete </div>
+                <div class="col col-20">Find </div>
+            </div>-->
+
+            <!--<a class="item  row row-center" href="#" ng-repeat="student in students">
+                <img class="col col-15 avatar " src="{{url}}/api/File/{{student.UserName}}">
+
+                <h2 class="col col-25 ">{{student.UserName}}</h2>
+
+                <button ng-if="!student.isTeacher" class="col col-20 button button-icon icon ion-close-circled " ng-click="addRole(user,'Teacher')"></button>
+                <button ng-if="student.isTeacher" class="col col-20 button button-icon icon ion-checkmark balanced" ng-click="deleteRole(user,'Teacher')"></button>
+
+
+
+                <button ng-if="!student.isTeacher" class="col col-20 button button-icon icon ion-search " ng-click="addRole(user,'Teacher')"></button>
+        </div>-->    
+        <div class="list">
+            <a class="item item-avatar item-icon-right " href="#" ng-repeat="student in students">
+                <img src="{{url}}/api/File/{{student.UserName}}">
+                <h2>{{student.UserName}}</h2>
+                <p> Find him on the map.</p>
+                <div class="icon">
+                    <span class="ion-trash-a" ng-click='removeFromGroup(student);'> </span>
+                    &nbsp;
+                    &nbsp;
+                    <span class=" ion-search" ng-click='showOnMap(student.UserName);'></span>
+                </div>
+            </a>
         </div>
-        <div style="text-align:center">
-            <button class="button center button-positive" ng-click="changeGroupDistance(currentDistance)">
-                Change the tracking ditance
-            </button>
-        </div>
-        </ion-content>
+    </ion-content>
 </ion-view>

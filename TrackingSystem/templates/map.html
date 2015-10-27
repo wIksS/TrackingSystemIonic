@@ -1,11 +1,11 @@
-<ion-view view-title="Location">
-    <ion-nav-buttons side="left">
+<ion-view hide-back-button="true" view-title="{{date | date:'d/M/yy h:mm a'}}">
+    <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-navigate" ng-click="centerOnMe()">
             Find me
         </button>
+            <button class="button button-icon button-clear button-light ion-navicon" menu-toggle="'right'"></button>
     </ion-nav-buttons>
     <ion-content>
         <map on-create="mapCreated(map)"></map>
-     </ion-content>
-
+    </ion-content>
 </ion-view>

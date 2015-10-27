@@ -7,6 +7,12 @@ app.factory('locationService', function (identity,baseUrl,httpRequester) {
             position.coords.identity = user.token;
             
             return httpRequester.postAuthorized(url + '/api/location', position.coords);            
+        },
+        getLocation: function (id)
+        {
+            var user = identity.getUser();
+
+            return httpRequester.getAuthorized(url + '/api/location/' + id, user.token);
         }
     }
 });

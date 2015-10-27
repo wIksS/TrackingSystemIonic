@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives', 'ngCordova'])
-            .constant('baseUrl', 'http://trackingsystemserver.apphb.com')//http://localhost:63810')
+            .constant('baseUrl', 'http://localhost:63810')//http://trackingsystemserver.apphb.com')//http://localhost:63810')
 
             .config(function ($ionicConfigProvider)
             {
@@ -112,6 +112,12 @@ var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives'
       controller: 'UsersCtrl'
   })
 
+  .state('app.settings', {
+      url: '/settings',
+      templateUrl: 'templates/settings.html',
+      controller: 'SettingsCtrl'
+  })
+
   .state('app.group', {
       url: '/group',
       templateUrl: 'templates/group.html',
@@ -119,7 +125,7 @@ var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives'
   })
 
   .state('app.map', {
-      url: '/map?:latitude/:longitude',
+      url: '/map?:date:latitude/:longitude',
       templateUrl: 'templates/map.html',
       controller: 'MapCtrl'
   })

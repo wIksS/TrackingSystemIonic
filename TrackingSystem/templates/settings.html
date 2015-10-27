@@ -1,0 +1,38 @@
+<ion-view view-title="Settings">
+    <ion-content>
+        <div class="row">
+            <div class="col col-40  list list-inset slider-border-input">
+                <h6>Min Distance</h6>
+                <label class="item item-input">
+                    <i class="icon ion-arrow-up placeholder-icon"></i>
+                    <input type="text" placeholder="{{min}}" ng-model="min">
+                </label>
+            </div>
+
+            <div class="col col-20 list list-inset slider-border-input">
+                <h6>Current Distance</h6>
+                <span>{{currentDistance}}</span>
+            </div>
+
+            <div class="col col-40  list list-inset slider-border-input">
+                <h6>Max Distance</h6>
+                <label class="item item-input">
+                    <i class="icon ion-arrow-down placeholder-icon"></i>
+                    <input type="text" placeholder="{{max}}" ng-model="max">
+                </label>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item range range-positive">
+                <i class="icon ion-ios-undo-outline"></i>
+                <input type="range" name="volume" min="{{min}}" max="{{max}}" value="currentDistance" ng-model="currentDistance">
+                <i class="icon ion-ios-redo"></i>
+            </div>
+        </div>
+        <div style="text-align:center">
+            <button class="button center button-positive" ng-click="changeGroupDistance(currentDistance)">
+                Change the tracking ditance
+            </button>
+        </div>
+        </ion-content>
+</ion-view>

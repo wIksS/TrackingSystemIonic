@@ -188,6 +188,7 @@
     <Content Include="js\controllers\LoginCtrl.js" />
     <Content Include="js\controllers\MapCtrl.js" />
     <Content Include="js\controllers\RegisterCtrl.js" />
+    <Content Include="js\controllers\SettingsCtrl.js" />
     <Content Include="js\controllers\StudentGroupsCtrl.js" />
     <Content Include="js\controllers\UsersCtrl.js" />
     <Content Include="js\directives.js" />
@@ -638,6 +639,7 @@
     <Content Include="Plugins\phonegap-plugin-localNotifications-master\www\phonegap\plugin\localNotification\localNotification.js" />
     <Content Include="style.css" />
     <Content Include="templates\group.html" />
+    <Content Include="templates\settings.html" />
     <Content Include="templates\home.html" />
     <Content Include="templates\login.html" />
     <Content Include="templates\map.html" />

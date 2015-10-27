@@ -4,6 +4,8 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams)
     $scope.mapCreated = function(map) {
         $scope.map = map;
         addMarker($stateParams.latitude, $stateParams.longitude);
+        $scope.date = $stateParams.date;
+        $scope.$apply();
     };
 
     $scope.centerOnMe = function ()

@@ -1,5 +1,5 @@
 
-app.controller('ExcursionCtrl', function ($scope, $ionicPopup,locationService,$state)
+app.controller('ExcursionCtrl', function ($scope, $ionicPopup, locationService, $state)
 {
     var isInPrompt = false;
     var interval = {};
@@ -14,36 +14,22 @@ app.controller('ExcursionCtrl', function ($scope, $ionicPopup,locationService,$s
 
         interval = setInterval(function ()
         {
-            localNotification.add(id + 1, {
-                seconds: 0,
-                message: '\n Click OK to show on map',
-                badge: 1
-            });
+
             navigator.geolocation.getCurrentPosition(
                    function (position)
                    {
-                       localNotification.add(id + 2, {
-                           seconds: 0,
-                           message: 'v get current pos',
-                           badge: 1
-                       });
+
                        locationService.addLocation(position)
                            .then(function (data)
                            {
-
-                               console.log(data);
-                               localNotification.add(id + 3, {
-                                   seconds: 0,
-                                   message: 'v datata',
-                                   badge: 1
-                               });
                                if (data.length > 0)
                                {
                                    navigator.notification.beep(3);
 
                                    for (var key in data)
                                    {
-                                       if (!isInPrompt) {
+                                       if (!isInPrompt)
+                                       {
                                            var dist = data[key];
                                            isInPrompt = true;
 
@@ -59,16 +45,17 @@ app.controller('ExcursionCtrl', function ($scope, $ionicPopup,locationService,$s
                                            var alertPopup = $ionicPopup.confirm({
                                                title: 'Distance',
                                                template: 'You are ' + dist.Distance + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map'
-                                           }).then(function (res) {
+                                           }).then(function (res)
+                                           {
                                                if (res)
                                                {
                                                    clearInterval(interval);
-                                                   $state.go('app.map', { latitude: dist.Coordinate.Latitude, longitude: dist.Coordinate.Longitude });
+                                                   $state.go('app.map', { date: dist.Coordinate.Date, latitude: dist.Coordinate.Latitude, longitude: dist.Coordinate.Longitude });
                                                }
                                                else
                                                {
                                                    isInPrompt = false;
-                                               }                                               
+                                               }
                                            });
                                        }
                                    }

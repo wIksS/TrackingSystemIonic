@@ -30,14 +30,19 @@
                 </a>
 
                 <!--Teacher area-->
+                <a ng-hide="!isTeacher" menu-close href="#/app/group" class="item item-icon-left">
+                    <i class="icon ion-ios-eye"></i>
+                    Group
+                </a>
+
                 <a ng-hide="!isTeacher" menu-close href="#/app/students" class="item item-icon-left">
                     <i class="icon ion-person-stalker"></i>
                     Students
                 </a>
 
-                <a ng-hide="!isTeacher" menu-close href="#/app/group" class="item item-icon-left">
+                <a ng-hide="!isTeacher" menu-close href="#/app/settings" class="item item-icon-left">
                     <i class="icon ion-android-settings"></i>                    
-                    Group
+                    Settings
                 </a>
 
                 <!--Admin area-->

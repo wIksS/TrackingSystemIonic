@@ -1,34 +1,50 @@
 
-app.controller('GroupCtrl', function ($scope, identity, errorHandler, $state, $timeout, groupService)
+app.controller('GroupCtrl', function ($scope, identity, errorHandler, $state, $timeout, groupService,locationService,baseUrl)
 {
     var user = identity.getUser();
     $scope.isAdmin = identity.isAdmin();
     $scope.isTeacher = identity.isInRole('Teacher');
+    $scope.url= baseUrl;
 
-    $scope.min = 50;
-    $scope.max = 5000;
-
-    $scope.currentDistance = user.group.MaxDistance;
-
-    if (!$scope.isTeacher)
-    {
-        $timeout(function ()
+    groupService.getStudentsInGroup()
+        .then(function (data)
         {
-            $state.go('app.home',{},{reload: true});
-        });
-    }
+            $scope.students = data;
 
-    $scope.changeGroupDistance = function (newDistance)
+        }, function (err)
+        {
+            errorHandler.handle(err);
+        });
+
+    $scope.showOnMap = function(id)
     {
-        groupService.changeGroupDistance(newDistance)
-            .then(function (data)
+        locationService.getLocation(id)
+            .then(function(data)
             {
-                $scope.currentDistance = data.MaxDistance;
-                identity.setGroup(data);
-            },
-            function (err)
+                console.log(data);
+                $state.go('app.map', {date:data.Date, latitude: data.Latitude, longitude: data.Longitude });
+            }, function (err)
             {
                 errorHandler.handle(err);
             })
     }
+
+    $scope.removeFromGroup = function(currentStudent)
+    {
+        groupService.removeFromGroup(currentStudent.UserName)
+            .then(function (data)
+            {
+                var index = $scope.students.indexOf(currentStudent);
+                if (index > -1)
+                {
+                    $scope.students.splice(index, 1);
+                    $scope.$apply();
+                }
+
+            }, function (err)
+            {
+                errorHandler.handle(err);
+            })
+    }
+    
 });

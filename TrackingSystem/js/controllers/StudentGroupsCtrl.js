@@ -29,10 +29,18 @@ app.controller('StudentGroupsCtrl',function ($scope, identity,errorHandler,stude
         	console.log(err);
     	});
     
-    $scope.addStudentToGroup = function(userName){
-        studentsService.addStudentToGroup(userName)
-        	.then(function(data){
-            	alert('Added student to group');
+    $scope.addStudentToGroup = function(currentStudent){
+        studentsService.addStudentToGroup(currentStudent.UserName)
+        	.then(function (data)
+        	{
+        	    var index = $scope.students.indexOf(currentStudent);
+        	    if (index > -1)
+        	    {
+        	        $scope.students.splice(index, 1);
+        	        $scope.$apply();
+        	    }
+        	    alert('Added student to group');
+
         	},function(err){
             	console.log(err);
         	});
