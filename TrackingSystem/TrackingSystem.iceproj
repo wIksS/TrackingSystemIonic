@@ -197,10 +197,12 @@
     <Content Include="js\services\account\identity.js" />
     <Content Include="js\services\account\usersService.js" />
     <Content Include="js\services\errorHandler.js" />
+    <Content Include="js\services\group\eventService.js" />
     <Content Include="js\services\group\groupService.js" />
     <Content Include="js\services\httpRequester.js" />
     <Content Include="js\services\location\locationService.js" />
     <Content Include="js\services\objectToQueryString.js" />
+    <Content Include="js\services\signalrService.js" />
     <Content Include="js\services\user\studentsService.js" />
     <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
@@ -266,6 +268,9 @@
     <Content Include="lib\ionic\version.json" />
     <Content Include="lib\jquery-image-blob.min.js" />
     <Content Include="lib\jquery.js" />
+    <Content Include="lib\jquery.signalR-2.2.0.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="lib\ng-cordova.js" />
     <Content Include="Plugins\cordova-plugin-background-geolocation-master\.gitignore" />
     <Content Include="Plugins\cordova-plugin-background-geolocation-master\CHANGES.md" />
@@ -638,6 +643,8 @@
     <Content Include="Plugins\phonegap-plugin-localNotifications-master\www\js\index.js" />
     <Content Include="Plugins\phonegap-plugin-localNotifications-master\www\phonegap\plugin\localNotification\localNotification.js" />
     <Content Include="style.css" />
+    <Content Include="templates\event-create.html" />
+    <Content Include="templates\event.html" />
     <Content Include="templates\group.html" />
     <Content Include="templates\settings.html" />
     <Content Include="templates\home.html" />

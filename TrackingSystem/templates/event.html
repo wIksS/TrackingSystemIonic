@@ -1,0 +1,13 @@
+<ion-view view-title="Create event">
+    <ion-content>
+        <ion-nav-buttons side="right">
+            <button class="button button-icon icon ion-navigate" ng-click="centerOnMe()">
+                Find me
+            </button>
+            <button class="button button-icon button-clear button-light ion-navicon" menu-toggle="'right'"></button>
+        </ion-nav-buttons>
+        <ion-content scroll="false" data-tap-disabled="true">
+            <map on-create="eventMapCreated(map)"></map>
+        </ion-content>
+    </ion-content>
+</ion-view>

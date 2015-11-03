@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives', 'ngCordova'])
+var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives','ngCordova'])
             .constant('baseUrl', 'http://localhost:63810')//http://trackingsystemserver.apphb.com')//http://localhost:63810')
 
             .config(function ($ionicConfigProvider)
@@ -13,9 +13,12 @@ var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives'
                 $ionicConfigProvider.tabs.style('standard').position('bottom');
                 $ionicConfigProvider.navBar.alignTitle('center').positionPrimaryButtons('left');
             })
-    .run(function($ionicPlatform) {
+    .run(function ($ionicPlatform, signalrService)
+    {
         $ionicPlatform.ready(function ()
         {
+            signalrService.initConnection();            
+
             //window.navigator.geolocation.getCurrentPosition(function (location) {
             //    console.log('Location from Phonegap');
             //});
@@ -130,6 +133,11 @@ var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives'
       controller: 'MapCtrl'
   })
 
+  .state('app.eventmap', {
+      url: '/eventmap',
+      templateUrl: 'templates/event.html',
+      controller: 'MapCtrl'
+  })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/home');
 });

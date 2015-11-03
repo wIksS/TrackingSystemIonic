@@ -1,0 +1,36 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Event</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeModal()">Close</button>
+        </div>
+    </ion-header-bar>
+    <ion-content >
+        <form ng-submit="uploadEvent(event)">
+            <div class="list">
+                <div class="list">
+                    <div class="item item-divider">Hours to event : {{event.hours}}</div>
+                    <div class="item range range-positive">
+                        <i class="icon ion-ios-clock-outline"></i>
+                        <input type="range" ng-model="event.hours" min="0" max="24" value="1">
+                        <i class="icon ion-ios-clock"></i>
+                    </div>
+                    <div class="item item-divider">Minutes to event : {{event.minutes}}</div>
+                    <div class="item range range-positive">
+                        <i class="icon ion-ios-clock-outline"></i>
+                        <input type="range" ng-model="event.minutes" min="0" max="59" value="1">
+                        <i class="icon ion-ios-clock"></i>
+                    </div>
+                </div>
+                <div class="item item-divider">Message</div>
+                <label class="item item-input">
+                    <i class="icon ion-edit placeholder-icon"></i>
+                    <textarea ng-model="event.message" rows="5"></textarea>
+                </label>
+                <label class="item">
+                    <button class="button button-block button-positive" type="submit">Send</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</ion-modal-view>

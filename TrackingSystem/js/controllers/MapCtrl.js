@@ -1,11 +1,65 @@
 
-app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams)
+app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicModal, $timeout,eventService)
 {
-    $scope.mapCreated = function(map) {
+    $scope.event = {};
+    $scope.event.hours = 1;
+    $scope.event.minutes = 1;
+
+    $scope.mapCreated = function (map)
+    {
         $scope.map = map;
         addMarker($stateParams.latitude, $stateParams.longitude);
         $scope.date = $stateParams.date;
         $scope.$apply();
+    };
+
+    $scope.eventMapCreated = function(map)
+    {
+        $ionicModal.fromTemplateUrl('templates/event-create.html', {
+            id: 1,
+            scope: $scope
+        }).then(function (modal)
+        {
+            $scope.modal = modal;
+        });
+
+        $scope.map = map;
+        google.maps.event.addListener($scope.map, 'click', function (event)
+        {
+            $scope.selectedCoord = event;
+            addMarker(event.latLng.lat(), event.latLng.lng(), true);
+            $timeout(function ()
+            {
+                $scope.modal.show()
+            }, 1000);
+        });
+    }
+
+    $scope.closeModal = function ()
+    {
+        $scope.modal.hide();
+    };
+
+    $scope.uploadEvent = function(event)
+    {
+        $scope.closeModal();
+
+        var eventViewModel = {
+            date: new Date().toLocaleString(),
+            latitude: $scope.selectedCoord.latLng.lat(),
+            longitude: $scope.selectedCoord.latLng.lng(),
+            message:event.message
+        };
+
+        eventService.addEvent(eventViewModel)
+            .then(function (data)
+            {
+                $scope.closeModal();
+
+            }, function (err)
+            {
+                console.log(err);
+            });
     };
 
     $scope.centerOnMe = function ()
@@ -30,7 +84,7 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams)
         });
     }
 
-    function addMarker(latitude, longitude)
+    function addMarker(latitude, longitude,dontSetCenter)
     {
         var position = new google.maps.LatLng(latitude, longitude);
         var marker = new google.maps.Marker({
@@ -42,7 +96,11 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams)
 
         marker.setMap($scope.map);
         marker.addListener('click', toggleBounce);
-        $scope.map.setCenter(position);
+        
+        if (!dontSetCenter)
+        {
+            $scope.map.setCenter(position);
+        }
     }
 
     function toggleBounce()

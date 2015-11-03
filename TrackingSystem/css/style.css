@@ -78,7 +78,7 @@
     padding-right:0px;
 }
 
-map {
+map,#map {
   display: block;
   width: 100%;
   height: 100%;

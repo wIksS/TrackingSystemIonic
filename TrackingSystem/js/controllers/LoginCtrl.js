@@ -2,7 +2,7 @@
  * Created by Виктор on 27.9.2014 г..
  */
 
-app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout, identity, auth, identity, $state, errorHandler, locationService, groupService, $ionicHistory,usersService)
+app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout, identity, auth, identity, $state, errorHandler, locationService, groupService, $ionicHistory, usersService, signalrService)
 {
     var user = identity.getUser();
     $scope.isLogged = identity.isLogged();
@@ -62,6 +62,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
                     .then(function (data)
                     {
                         identity.setGroup(data);
+                        signalrService.addToRoom(data.Id);
                     },
                     function (err)
                     {
