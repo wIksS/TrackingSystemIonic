@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives','ngCordova'])
-            .constant('baseUrl', 'http://localhost:63810')//http://trackingsystemserver.apphb.com')//http://localhost:63810')
+            .constant('baseUrl', 'http://trackingsystemservernew.apphb.com/')//http://trackingsystemserver.apphb.com')//http://localhost:63810')
 
             .config(function ($ionicConfigProvider)
             {
@@ -13,7 +13,7 @@ var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives'
                 $ionicConfigProvider.tabs.style('standard').position('bottom');
                 $ionicConfigProvider.navBar.alignTitle('center').positionPrimaryButtons('left');
             })
-    .run(function ($ionicPlatform, signalrService)
+    .run(function ($ionicPlatform, signalrService, locationService)
     {
         $ionicPlatform.ready(function ()
         {
@@ -23,51 +23,83 @@ var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives'
             //    console.log('Location from Phonegap');
             //});
 
-            //var bgGeo = backgroundGeoLocation;//window.BackgroundGeolocation;
-            //navigator.notification.alert(bgGeo);
-            //navigator.notification.alert(window.BackgroundGeolocation);
+            var bgGeo = backgroundGeoLocation;//window.BackgroundGeolocation;
 
-            //var yourAjaxCallback = function (response) {
+            var yourAjaxCallback = function (response) {
 
-            //    bgGeo.finish();
-            //};
+                bgGeo.finish();
+            };
 
-            ///**
-            //* This callback will be executed every time a geolocation is recorded in the background.
-            //*/
-            //var callbackFn = function (location) {
-            //    console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
+            /**
+            * This callback will be executed every time a geolocation is recorded in the background.
+            */
+            var callbackFn = function (location) {
+                locationService.addLocation(position)
+                    .then(function (data) {
+                        if (data.length > 0) {
+                            navigator.notification.beep(3);
 
-            //    localNotification.add(150, {
-            //        seconds: 0,
-            //        message: '[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude,
-            //        badge: 1
-            //    });
+                            for (var key in data) {
+                                if (!isInPrompt) {
+                                    var dist = data[key];
+                                    isInPrompt = true;
 
-            //    navigator.notification.beep(3);
-            //    yourAjaxCallback.call(this);
-            //};
+                                    if (window.localNotification && localNotification) {
+                                        localNotification.add(id, {
+                                            seconds: 0,
+                                            message: 'You are ' + dist.Distance + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map',
+                                            badge: 1
+                                        });
+                                    }
 
-            //var failureFn = function (error) {
-            //    console.log('BackgroundGeoLocation error');
-            //}
+                                    var alertPopup = $ionicPopup.confirm({
+                                        title: 'Distance',
+                                        template: 'You are ' + dist.Distance + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map'
+                                    }).then(function (res) {
+                                        if (res) {
+                                            clearInterval(interval);
+                                            $state.go('app.map', { date: dist.Coordinate.Date, latitude: dist.Coordinate.Latitude, longitude: dist.Coordinate.Longitude });
+                                        }
+                                        else {
+                                            isInPrompt = false;
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }, function (err) {
+                        console.log(err);
+                    });
+                localNotification.add(150, {
+                    seconds: 0,
+                    message: '[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude,
+                    badge: 1
+                });
 
-            //// BackgroundGeoLocation is highly configurable.
-            //bgGeo.configure(callbackFn, failureFn, {               
-            //    desiredAccuracy: 10,
-            //    stationaryRadius: 20,
-            //    distanceFilter: 30,
-            //    locationTimeout: 0,
-            //    locationUpdateInterval:3,
-            //    notificationTitle: 'Background tracking', // <-- android only, customize the title of the notification
-            //    notificationText: 'ENABLED', // <-- android only, customize the text of the notification
-            //    activityType: 'AutomotiveNavigation',
-            //    debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
-            //    stopOnTerminate: false // <-- enable this to clear background location settings when the app terminates
-            //});
+                navigator.notification.beep(3);
+                yourAjaxCallback.call(this);
+            };
 
-            //// Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
-            //bgGeo.start();
+            var failureFn = function (error) {
+                console.log('BackgroundGeoLocation error');
+            }
+
+            // BackgroundGeoLocation is highly configurable.
+            bgGeo.configure(callbackFn, failureFn, {               
+                desiredAccuracy: 10,
+                stationaryRadius: 20,
+                distanceFilter: 1,
+                locationTimeout: 0,
+                locationUpdateInterval:1,
+                notificationTitle: 'Background tracking', // <-- android only, customize the title of the notification
+                notificationText: 'ENABLED', // <-- android only, customize the text of the notification
+                activityType: 'AutomotiveNavigation',
+                debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+                stopOnTerminate: false // <-- enable this to clear background location settings when the app terminates
+            });
+
+            // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
+            bgGeo.start();
 
             if (window.cordova && window.cordova.plugins.Keyboard) {
               cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
