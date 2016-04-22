@@ -1,0 +1,10 @@
+﻿{
+  "version": "2.2.1",
+  "output": "Error",
+  "ignore": [],
+  "options": {
+    "devel": true
+  },
+  "globalVariables": [],
+  "runOnBuild": true
+}

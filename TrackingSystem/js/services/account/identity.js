@@ -1,3 +1,5 @@
+"use strict";
+
 app.factory('identity', function (auth) {
     function getUser(){
         var user = {

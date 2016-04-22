@@ -1,6 +1,4 @@
-/**
- * Created by Виктор on 27.9.2014 г..
- */
+"use strict";
 
 app.controller('StudentGroupsCtrl',function ($scope, identity,errorHandler,studentsService,baseUrl) {
     var user = identity.getUser(),
@@ -20,8 +18,8 @@ app.controller('StudentGroupsCtrl',function ($scope, identity,errorHandler,stude
         $scope.user = $scope.user || {};
         $scope.username = user.username;
     });
-	
-	studentsService.getStudents()
+
+    studentsService.getStudents()
     	.then(function(data){
         	$scope.students = data;
         	$scope.$apply();

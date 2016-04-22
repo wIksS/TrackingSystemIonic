@@ -1,4 +1,6 @@
-app.factory('locationService', function (identity,baseUrl,httpRequester) {
+"use strict";
+
+app.factory('locationService', function (identity, baseUrl, httpRequester) {
     var url = baseUrl;
 
     return {

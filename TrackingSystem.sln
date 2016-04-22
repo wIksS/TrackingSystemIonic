@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{A81B4A23-AF18-4B01-8944-84D6FB3D4B47}") = "TrackingSystem", "TrackingSystem\TrackingSystem.iceproj", "{E91BDED0-BA60-4197-B46C-7830C5ADB19E}"
+Project("{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}") = "TrackingSystem", "TrackingSystem\TrackingSystem.iceproj", "{E91BDED0-BA60-4197-B46C-7830C5ADB19E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

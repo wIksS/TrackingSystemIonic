@@ -1,3 +1,5 @@
+"use strict";
+
 app.factory('usersService', function (identity, baseUrl, httpRequester)
 {
     var url = baseUrl;

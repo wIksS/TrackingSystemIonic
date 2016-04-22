@@ -1,4 +1,6 @@
-app.factory('signalrService', function (baseUrl, $ionicPopup,$state,identity)
+"use strict";
+
+app.factory('signalrService', function (baseUrl, $ionicPopup, $state, identity)
 {
     var connection = {},
         eventHubProxy = {};

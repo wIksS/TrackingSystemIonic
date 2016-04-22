@@ -1,9 +1,35 @@
+"use strict";
 
 app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicModal, $timeout,eventService)
 {
     $scope.event = {};
     $scope.event.hours = 1;
     $scope.event.minutes = 1;
+
+    function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    }
+
+    function addMarker(latitude, longitude, dontSetCenter) {
+        var position = new google.maps.LatLng(latitude, longitude);
+        var marker = new google.maps.Marker({
+            position: position,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title: "Your position"
+        });
+
+        marker.setMap($scope.map);
+        marker.addListener('click', toggleBounce);
+
+        if (!dontSetCenter) {
+            $scope.map.setCenter(position);
+        }
+    }
 
     $scope.mapCreated = function (map)
     {
@@ -82,35 +108,5 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicM
         {
             alert('Unable to get location: ' + error.message);
         });
-    }
-
-    function addMarker(latitude, longitude,dontSetCenter)
-    {
-        var position = new google.maps.LatLng(latitude, longitude);
-        var marker = new google.maps.Marker({
-            position: position,
-            draggable: true,
-            animation: google.maps.Animation.DROP,
-            title: "Your position"
-        });
-
-        marker.setMap($scope.map);
-        marker.addListener('click', toggleBounce);
-        
-        if (!dontSetCenter)
-        {
-            $scope.map.setCenter(position);
-        }
-    }
-
-    function toggleBounce()
-    {
-        if (marker.getAnimation() !== null)
-        {
-            marker.setAnimation(null);
-        } else
-        {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
     }
 });

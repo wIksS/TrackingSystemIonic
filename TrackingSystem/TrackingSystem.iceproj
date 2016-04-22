@@ -181,6 +181,7 @@
       <Publish>True</Publish>
     </Content>
     <Content Include="index.html" />
+    <Content Include="JSLintNet.json" />
     <Content Include="js\app.js" />
     <Content Include="js\controllers\CameraCtrl.js" />
     <Content Include="js\controllers\ExcursionCtrl.js" />

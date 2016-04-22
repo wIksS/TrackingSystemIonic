@@ -1,3 +1,5 @@
+"use strict";
+
 app.factory('eventService', function (identity, baseUrl, httpRequester)
 {
     var url = baseUrl;

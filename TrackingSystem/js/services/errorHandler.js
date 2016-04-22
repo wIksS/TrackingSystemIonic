@@ -1,3 +1,5 @@
+"use strict";
+
 app.factory('errorHandler', function () {
      return {
         handle: function (err) {

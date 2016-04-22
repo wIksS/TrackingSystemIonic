@@ -1,3 +1,5 @@
+"use strict";
+
 app.factory('groupService', function (identity, baseUrl, httpRequester)
 {
     var url = baseUrl;

@@ -1,4 +1,6 @@
-app.factory('auth', function($http,$q,baseUrl,httpRequester,objectToQueryString){
+"use strict";
+
+app.factory('auth', function ($http, $q, baseUrl, httpRequester, objectToQueryString) {
     var url = baseUrl;
     
     return {

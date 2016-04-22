@@ -1,4 +1,6 @@
-app.factory('objectToQueryString',function(){
+"use strict";
+
+app.factory('objectToQueryString', function () {
     return{
         parse:function (obj) {
             var p = [];

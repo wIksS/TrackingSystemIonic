@@ -1,4 +1,6 @@
-app.factory('studentsService', function (identity,baseUrl,httpRequester) {
+"use strict";
+
+app.factory('studentsService', function (identity, baseUrl, httpRequester) {
     var url = baseUrl;
 
     return {

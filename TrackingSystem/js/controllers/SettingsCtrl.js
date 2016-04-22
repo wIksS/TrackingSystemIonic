@@ -1,3 +1,4 @@
+"use strict";
 
 app.controller('SettingsCtrl', function ($scope, identity, errorHandler, $state, $timeout, groupService)
 {

@@ -1,4 +1,6 @@
-app.controller('UsersCtrl', function ($scope, $location, auth, identity, baseUrl, errorHandler, usersService){
+"use strict";
+
+app.controller('UsersCtrl', function ($scope, $location, auth, identity, baseUrl, errorHandler, usersService) {
     $scope.isLogged = identity.isLogged();
     $scope.isAdmin = identity.isAdmin();
 

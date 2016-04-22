@@ -1,13 +1,3 @@
-/* jquery.signalR.core.js */
-/*global window:false */
-/*!
- * ASP.NET SignalR JavaScript Library v2.2.0
- * http://signalr.net/
- *
- * Copyright (C) Microsoft Corporation. All rights reserved.
- *
- */
-
 /// <reference path="Scripts/jquery-1.6.4.js" />
 /// <reference path="jquery.signalR.version.js" />
 (function ($, window, undefined) {

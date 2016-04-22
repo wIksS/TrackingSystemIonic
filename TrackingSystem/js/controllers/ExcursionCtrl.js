@@ -1,9 +1,10 @@
+"use strict";
 
 app.controller('ExcursionCtrl', function ($scope, $ionicPopup, locationService, $state)
 {
-    var isInPrompt = false;
-    var interval = {};
-    var id = 102;
+    var isInPrompt = false,
+        interval = {},
+        id = 102;
 
     $scope.startExcursion = function ()
     {
@@ -14,7 +15,6 @@ app.controller('ExcursionCtrl', function ($scope, $ionicPopup, locationService, 
 
         interval = setInterval(function ()
         {
-
             navigator.geolocation.getCurrentPosition(
                    function (position)
                    {

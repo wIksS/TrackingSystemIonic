@@ -1,8 +1,6 @@
-/**
- * Created by Виктор on 27.9.2014 г..
- */
+"use strict";
 
-app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout, identity, auth, identity, $state, errorHandler, locationService, groupService, $ionicHistory, usersService, signalrService)
+app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout, identity, auth, $state, errorHandler, locationService, groupService, $ionicHistory, usersService, signalrService)
 {
     var user = identity.getUser();
     $scope.isLogged = identity.isLogged();

@@ -1,4 +1,6 @@
-app.factory('httpRequester',function(objectToQueryString){
+"use strict";
+
+app.factory('httpRequester', function (objectToQueryString) {
     return {
         get: function (url){
             return $.ajax({
