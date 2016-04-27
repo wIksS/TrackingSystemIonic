@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicModal, $timeout,eventService)
+app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams,locationService, $ionicModal, $timeout,eventService)
 {
     $scope.event = {};
     $scope.event.hours = 1;
@@ -103,6 +103,21 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicM
         navigator.geolocation.getCurrentPosition(function (pos)
         {
             addMarker(pos.coords.latitude, pos.coords.longitude);
+            var directions = locationService.getGoogleMapsService($scope.map);
+            debugger;
+            directions.directionsService.route({
+                origin: { lat: pos.coords.latitude, lng: pos.coords.longitude},
+                destination: { lat: parseFloat($stateParams.latitude), lng: parseFloat($stateParams.longitude) },
+                optimizeWaypoints: true,
+                travelMode: google.maps.TravelMode.WALKING
+            }, function (response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directions.directionsDisplay.setDirections(response);
+                } else {
+                    alert("No route found");
+                }
+            });
+
             $ionicLoading.hide();
         }, function (error)
         {

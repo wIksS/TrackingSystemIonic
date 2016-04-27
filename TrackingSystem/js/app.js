@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('TrackingSystem', ['ionic', 'TrackingSystem.directives','ngCordova'])
-            .constant('baseUrl', 'http://trackingsystemservernew.apphb.com/')//http://trackingsystemserver.apphb.com')//http://localhost:63810')
+            .constant('baseUrl', 'http://trackingsystemserverspringconf.apphb.com/')//http://trackingsystemserver.apphb.com')//http://localhost:63810')
 
             .config(function ($ionicConfigProvider)
             {

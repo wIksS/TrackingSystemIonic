@@ -7,7 +7,7 @@ app.factory('studentsService', function (identity, baseUrl, httpRequester) {
         getStudents:function(){
             var user = identity.getUser();
             
-            return httpRequester.getAuthorized(url + '/api/students',user.token);            
+            return httpRequester.getAuthorized(url + '/api/students',user.token);
         },
         addStudentToGroup:function(userName){
             var user = identity.getUser();

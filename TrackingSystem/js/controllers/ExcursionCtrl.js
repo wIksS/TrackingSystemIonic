@@ -44,7 +44,7 @@ app.controller('ExcursionCtrl', function ($scope, $ionicPopup, locationService, 
 
                                            var alertPopup = $ionicPopup.confirm({
                                                title: 'Distance',
-                                               template: 'You are ' + dist.Distance + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map'
+                                               template: 'You are ' + parseFloat(dist.Distance).toFixed(2) + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map'
                                            }).then(function (res)
                                            {
                                                if (res)
