@@ -4,7 +4,6 @@ app.controller('RegisterCtrl', function ($scope, auth, identity, errorHandler, $
     $scope.register = function(user){
         auth.register(user)
             .then(function(data){
-                //notifier.success('Successful registration !');
                 $state.go('app/home')
                 auth.login({
                     username:user.email,

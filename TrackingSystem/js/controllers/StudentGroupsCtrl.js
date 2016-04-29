@@ -1,46 +1,33 @@
 "use strict";
 
-app.controller('StudentGroupsCtrl',function ($scope, identity,errorHandler,studentsService,baseUrl) {
-    var user = identity.getUser(),
-        interval;
-    $scope.isLogged = identity.isLogged();
-    $scope.isAdmin = identity.isAdmin();
-    $scope.isTeacher = identity.isInRole('Teacher');
-    $scope.user = user || {};
-    $scope.username = user.username;
+app.controller('StudentGroupsCtrl', function ($scope, identity, errorHandler, studentsService, baseUrl) {
+    var interval;
+    identity.setScopeData($scope);
+
+    $scope.username = $scope.user.username;
     $scope.url = baseUrl;
 
-    $scope.$on('$routeChangeStart', function (next, current) {
-        user = identity.getUser();
-        $scope.isLogged = identity.isLogged();
-        $scope.isAdmin = identity.isAdmin();
-        $scope.isTeacher = identity.isInRole('Teacher');
-        $scope.user = $scope.user || {};
-        $scope.username = user.username;
+    studentsService.getStudents()
+    .then(function (data) {
+        $scope.students = data;
+        $scope.$apply();
+    }, function (err) {
+        console.log(err);
     });
 
-    studentsService.getStudents()
-    	.then(function(data){
-        	$scope.students = data;
-        	$scope.$apply();
-    	},function(err){
-        	console.log(err);
-    	});
-    
-    $scope.addStudentToGroup = function(currentStudent){
+    $scope.addStudentToGroup = function (currentStudent) {
         studentsService.addStudentToGroup(currentStudent.UserName)
-        	.then(function (data)
-        	{
-        	    var index = $scope.students.indexOf(currentStudent);
-        	    if (index > -1)
-        	    {
-        	        $scope.students.splice(index, 1);
-        	        $scope.$apply();
-        	    }
-        	    alert('Added student to group');
+        .then(function (data) {
+            var index = $scope.students.indexOf(currentStudent);
+            if (index > -1) {
+                $scope.students.splice(index, 1);
+                $scope.$apply();
+            }
 
-        	},function(err){
-            	console.log(err);
-        	});
+            alert('Added student to group');
+
+        }, function (err) {
+            errorHandler.handle(error)
+        });
     }
 });

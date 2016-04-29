@@ -1,8 +1,7 @@
 "use strict";
 
 app.controller('GroupCtrl', function ($scope, identity, errorHandler, $state, $timeout, groupService, locationService, baseUrl) {
-    $scope.isAdmin = identity.isAdmin();
-    $scope.isTeacher = identity.isInRole('Teacher');
+    identity.setScopeData($scope);
     $scope.url = baseUrl;
 
     groupService.getStudentsInGroup()

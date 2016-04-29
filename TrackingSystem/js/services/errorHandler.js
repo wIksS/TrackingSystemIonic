@@ -1,7 +1,9 @@
 "use strict";
 
-app.factory('errorHandler', function () {
-     return {
+app.factory('errorHandler', function (notifier) {
+    var title = 'Error';
+
+    return {
         handle: function (err) {
             console.log(err);
             var modelState = err.ModelState;
@@ -10,36 +12,42 @@ app.factory('errorHandler', function () {
                 for (var model in modelState) {
                     for (var i = 0; i < modelState[model].length; i++) {
                         isNotified = false;
-                        navigator.notification.alert(modelState[model][i]);
+                        notifier.alert(title, modelState[model][i]);
                     }
                 }
 
                 if (isNotified) {
                     if (err.message) {
-                        navigator.notification.alert(err.message);
+                        notifier.alert(title, err.message);
                     }
                     else if (err.Message) {
-                        navigator.notification.alert(err.Message);
+                        notifier.alert(title, err.Message);
                     }
                     else if (err.error_description) {
-                        navigator.notification.alert(err.error_description);
+                        notifier.alert(title, err.error_description);
                     }
                 }
             }
             else {
-                if(err.message){
-                    navigator.notification.alert(err.message);
+                if (err.message) {
+                    notifier.alert(title, err.message);
                 }
                 else if (err.Message) {
-                    navigator.notification.alert(err.Message);
+                    notifier.alert(title, err.Message);
                 }
                 else if (err.error_description) {
-                    navigator.notification.alert(err.error_description);
+                    notifier.alert(title, err.error_description);
                 }
-                else if(err.responseText){
-                    navigator.notification.alert(err.responseText);
+                else if (err.responseText) {
+                    var response = JSON.parse(err.responseText);
+                    if (response && response.error_description) {
+                        notifier.alert(title, response.error_description);
+                    }
+                    else {
+                        notifier.alert(title, err.responseText);
+                    }
                 }
-            }        
+            }
         }
     }
 });

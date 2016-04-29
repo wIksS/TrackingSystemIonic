@@ -1,34 +1,25 @@
 "use strict";
 
-app.controller('SettingsCtrl', function ($scope, identity, errorHandler, $state, $timeout, groupService)
-{
-    var user = identity.getUser();
-    $scope.isAdmin = identity.isAdmin();
-    $scope.isTeacher = identity.isInRole('Teacher');
-
+app.controller('SettingsCtrl', function ($scope, identity, errorHandler, $state, $timeout, groupService) {
+    identity.setScopeData($scope);
     $scope.min = 50;
     $scope.max = 5000;
 
     $scope.currentDistance = user.group.MaxDistance;
 
-    if (!$scope.isTeacher)
-    {
-        $timeout(function ()
-        {
+    if (!$scope.isTeacher) {
+        $timeout(function () {
             $state.go('app.home', {}, { reload: true });
         });
     }
 
-    $scope.changeGroupDistance = function (newDistance)
-    {
+    $scope.changeGroupDistance = function (newDistance) {
         groupService.changeGroupDistance(newDistance)
-            .then(function (data)
-            {
+            .then(function (data) {
                 $scope.currentDistance = data.MaxDistance;
                 identity.setGroup(data);
             },
-            function (err)
-            {
+            function (err) {
                 errorHandler.handle(err);
             })
     }
