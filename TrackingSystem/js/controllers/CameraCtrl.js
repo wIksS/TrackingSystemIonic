@@ -1,65 +1,46 @@
 "use strict";
 
-app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, identity, usersService, baseUrl) {
+app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, identity, usersService, baseUrl, imageUploadService, notifier, errorHandler) {
     $scope.url = baseUrl;
     $scope.data = { "ImageURI": "Select Image" };
     $scope.profilePic = null;
+    identity.setScopeData($scope);
+    // this object is used to set directive functions so that they 
+    // can be use from the controller because the scope is different
+    $scope.uploadImgDirective = {};
+
+    $scope.sendPhotoToServer = function (jqueryImg) {
+        var imageBlob = jqueryImg.imageBlob();
+        imageUploadService.upload(imageBlob, $scope.uploadImgDirective.onUploadComplete, function (error) {
+            errorHandler.handle(error);
+        });
+    }
 
     function uploadPhoto(imageURI) {
-        var user = identity.getUser();
-
-        var img = $('#hidden-image');
-        img.load(function () {
-            $(img).imageBlob().ajax($scope.url + '/api/file/UploadFile', {
-                complete: function (jqXHR, textStatus) {
-                    $(".profile-image").attr("src", $scope.url + "/api/File/" + user.username + "?timestamp=" + new Date().getTime());
-                    console.log('Uploaded pic');
-                },
-                error: function (err) {
-                    console.log(err);
-                },
-                headers: { "Authorization": "Bearer " + user.token },
-            });
-        })
-
+        $scope.uploadImgDirective.uploadImgJqueryOnUpload();
         $scope.profilePic = imageURI;
         $scope.$apply();
     }
 
-    function win(r) {
-        console.log("Code = " + r.responseCode);
-        console.log("Response = " + r.response);
-        console.log("Sent = " + r.bytesSent);
-        alert(r.response);
-    }
-
-    function fail(error) {
-        alert("An error has occurred: Code = " + error.code);
-    }
-
-    $scope.getImage = function () {
-        // Retrieve image file location from specified source
+    function getPicture(picSourceType) {
         navigator.camera.getPicture(uploadPhoto, function (message) {
-            alert('get picture failed');
+            notifier.alert('Get picture failed');
         },
         {
             quality: 30,
             destinationType: navigator.camera.DestinationType.FILE_URI,
-            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+            sourceType: picSourceType,
             targetWidth: 100, targetHeight: 100,
         });
     }
 
+    // Retrieve image file location from specified source
+    $scope.getImage = function () {        
+        getPicture( navigator.camera.PictureSourceType.PHOTOLIBRARY);
+    }
+
+    // Retrieve image file from camera
     $scope.takeImage = function () {
-        navigator.camera.getPicture(uploadPhoto, function (message) {
-            alert('get picture failed');
-        },
-        {
-            quality: 30,
-            destinationType: navigator.camera.DestinationType.FILE_URI,
-            sourceType: navigator.camera.PictureSourceType.CAMERA,
-            targetWidth: 100, targetHeight: 100,
-        }
-        );
+        getPicture(navigator.camera.PictureSourceType.CAMERA);
     }
 })

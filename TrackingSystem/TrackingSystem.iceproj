@@ -192,8 +192,8 @@
     <Content Include="js\controllers\SettingsCtrl.js" />
     <Content Include="js\controllers\StudentGroupsCtrl.js" />
     <Content Include="js\controllers\UsersCtrl.js" />
-    <Content Include="js\directives.js" />
-    <Content Include="js\index.js" />
+    <Content Include="js\directives\imageUpload.js" />
+    <Content Include="js\directives\map.js" />
     <Content Include="js\services\account\auth.js" />
     <Content Include="js\services\account\identity.js" />
     <Content Include="js\services\account\usersService.js" />
@@ -201,9 +201,12 @@
     <Content Include="js\services\group\eventService.js" />
     <Content Include="js\services\group\groupService.js" />
     <Content Include="js\services\httpRequester.js" />
+    <Content Include="js\services\location\directionsService.js" />
     <Content Include="js\services\location\locationService.js" />
+    <Content Include="js\services\modalService.js" />
     <Content Include="js\services\objectToQueryString.js" />
     <Content Include="js\services\signalrService.js" />
+    <Content Include="js\services\user\imageUploadService.js" />
     <Content Include="js\services\user\studentsService.js" />
     <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
@@ -722,6 +725,7 @@
     <Folder Include="images\photos\" />
     <Folder Include="js\" />
     <Folder Include="js\controllers\" />
+    <Folder Include="js\directives\" />
     <Folder Include="js\services\" />
     <Folder Include="js\services\account\" />
     <Folder Include="js\services\group\" />

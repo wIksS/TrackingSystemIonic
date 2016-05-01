@@ -20,7 +20,7 @@
                     Home
                 </a>
 
-                <a ng-hide="isLogged" menu-close ng-click="openModal(1)" class="item item-icon-left">
+                <a ng-hide="isLogged" menu-close ng-click="openModal(loginModalId)" class="item item-icon-left">
                     <i class="icon ion-person"></i>
                     Login
                 </a>
@@ -62,7 +62,7 @@
 
 <ion-tabs ng-if="!isLogged" class="tabs-dark tabs-icon-only" ng-hide="!isHome">
 
-    <ion-tab title="Login" ng-hide="!isLogged" icon-on="ion-person" ng-click="openModal(1)" icon-off="ion-person">
+    <ion-tab title="Login" ng-hide="!isLogged" icon-on="ion-person" ng-click="openModal(loginModalId)" icon-off="ion-person">
         <!-- Tab 1 content -->
     </ion-tab>
 
@@ -80,7 +80,7 @@
 <ion-tabs ng-if="isLogged" class="tabs-dark tabs-icon-only" ng-hide="!isHome">
 
 
-    <ion-tab title="Profile" ng-hide="isLogged" icon-on="ion-person" ng-click="openModal(2)" icon-off="ion-person">
+    <ion-tab title="Profile" ng-hide="isLogged" icon-on="ion-person" ng-click="openModal(profileModalId)" icon-off="ion-person">
         <!-- Tab 1 content -->
     </ion-tab>
 

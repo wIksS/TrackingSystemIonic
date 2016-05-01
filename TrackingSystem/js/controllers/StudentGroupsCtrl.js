@@ -1,9 +1,8 @@
 "use strict";
 
-app.controller('StudentGroupsCtrl', function ($scope, identity, errorHandler, studentsService, baseUrl) {
+app.controller('StudentGroupsCtrl', function ($scope, identity, errorHandler, notifier,studentsService, baseUrl) {
     var interval;
     identity.setScopeData($scope);
-
     $scope.username = $scope.user.username;
     $scope.url = baseUrl;
 
@@ -12,20 +11,21 @@ app.controller('StudentGroupsCtrl', function ($scope, identity, errorHandler, st
         $scope.students = data;
         $scope.$apply();
     }, function (err) {
-        console.log(err);
+        errorHandler.handle(error);
     });
 
     $scope.addStudentToGroup = function (currentStudent) {
         studentsService.addStudentToGroup(currentStudent.UserName)
         .then(function (data) {
+            // remove student from the scope so it 
+            // can be rendered without it in the UI
             var index = $scope.students.indexOf(currentStudent);
             if (index > -1) {
                 $scope.students.splice(index, 1);
                 $scope.$apply();
             }
 
-            alert('Added student to group');
-
+            notifier.alert('Added student to group');
         }, function (err) {
             errorHandler.handle(error)
         });

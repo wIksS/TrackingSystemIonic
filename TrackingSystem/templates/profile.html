@@ -1,8 +1,8 @@
-<ion-modal-view ng-controller="CameraCtrl" >
+<ion-modal-view ng-controller="CameraCtrl">
     <ion-header-bar>
         <h1 class="title">Profile</h1>
         <div class="buttons">
-            <button class="button button-clear" ng-click="closeModal(2)">Close</button>
+            <button class="button button-clear" ng-click="closeModal(profileModalId)">Close</button>
         </div>
     </ion-header-bar>
     <ion-content>
@@ -16,7 +16,7 @@
                     <button id="upload-button" class="button icon-left ion-ios-camera button-positive" ng-click="getImage()">Upload picture</button>
                 </span>
             </div>
-        </div>       
-        <img id="hidden-image" class="hidden" src="{{profilePic}}">
+        </div>
+        <img id="hidden-image" image-upload class="hidden" src="{{profilePic}}">
     </ion-content>
 </ion-modal-view>

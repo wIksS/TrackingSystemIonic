@@ -1,83 +1,53 @@
 "use strict";
 
 app.controller('UsersCtrl', function ($scope, $location, auth, identity, baseUrl, errorHandler, usersService) {
-    $scope.isLogged = identity.isLogged();
-    $scope.isAdmin = identity.isAdmin();
+    $scope.adminRole = 'Admin';
+    $scope.teacherRole = 'Teacher';
 
-    var user = identity.getUser();
+    identity.setScopeData($scope);
 
-    usersService.getUsers(user.token)
-        .then(function (data)
-        {
-            $scope.users = data;
-            for (var i = 0; i < data.length; i++)
-            {
-                data[i].isAdmin = data[i].Roles.indexOf('Admin') >= 0;
-                data[i].isTeacher = data[i].Roles.indexOf('Teacher') >= 0;
-            }
-
-            $scope.$apply();
-        }, function (err)
-        {
-            errorHandler.handle(err);
+    usersService.getUsers($scope.user.token)
+    .then(function (data) {
+        $scope.users = data;
+        for (var i = 0; i < data.length; i++) {
+            data[i][$scope.adminRole] = data[i].Roles.indexOf($scope.adminRole) >= 0;
+            data[i][$scope.teacherRole] = data[i].Roles.indexOf($scope.teacherRole) >= 0;
         }
-    );
 
-    $scope.addRole = function (currentUser, roleName)
-    {
-        usersService.addRole(currentUser, roleName,user.token)
-            .then(function (data)
-            {
-                if (roleName == 'Admin')
-                {
-                    currentUser.isAdmin = true;
-                }
-                if (roleName == 'Teacher')
-                {
-                    currentUser.isTeacher = true;
-                }
+        $scope.$apply();
+    }, function (err) {
+        errorHandler.handle(err);
+    });
 
-                $scope.$apply();
-            }, function (err)
-            {
-                errorHandler.handle(err);
-            });
+    $scope.addRole = function (currentUser, roleName) {
+        usersService.addRole(currentUser, roleName, $scope.user.token)
+        .then(function (data) {
+            currentUser[roleName] = true;
+            $scope.$apply();
+        }, function (err) {
+            errorHandler.handle(err);
+        });
     }
 
-    $scope.deleteRole = function (currentUser, roleName)
-    {
-        usersService.deleteRole(currentUser, roleName, user.token)
-            .then(function (data)
-            {
-                if (roleName == 'Admin')
-                {
-                    currentUser.isAdmin = false;
-                }
-                if (roleName == 'Teacher')
-                {
-                    currentUser.isTeacher = false;
-                }
-
+    $scope.deleteRole = function (currentUser, roleName) {
+        usersService.deleteRole(currentUser, roleName, $scope.user.token)
+            .then(function (data) {
+                currentUser[roleName] = false;
                 $scope.$apply();
-            }, function (err)
-            {
+            }, function (err) {
                 errorHandler.handle(err);
             }
         );
     }
 
-    $scope.deleteUser = function (currentUser)
-    {
+    $scope.deleteUser = function (currentUser) {
         usersService.deleteUser(currentUser, user.token)
-            .then(function (data)
-            {
+            .then(function (data) {
                 var index = $scope.users.indexOf(currentUser);
-                if (index > -1)
-                {
+                if (index > -1) {
                     $scope.users.splice(index, 1);
                 }
-            }, function (err)
-            {
+            }, function (err) {
                 errorHandler.handle(err);
             }
         );
