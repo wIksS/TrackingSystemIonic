@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicModal, $timeout, locationService, eventService, modalService) {
+app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicModal, $timeout, locationService, eventService, modalService, directionsService) {
     var mapModalId = modalService.getId(),
         mapModalUrl = 'templates/event-create.html';
 
@@ -18,13 +18,14 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicM
     }
 
     function findDirections(position) {
-        directionsService.findRoute($scope.map, 
+        debugger;
+        directionsService.findRoute($scope.map,
             {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             },
             {
-                lat:parseFloat($stateParams.latitude),
+                lat: parseFloat($stateParams.latitude),
                 lng: parseFloat($stateParams.longitude)
             });
     }

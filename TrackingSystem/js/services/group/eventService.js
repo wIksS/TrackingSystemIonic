@@ -1,12 +1,10 @@
 "use strict";
 
-app.factory('eventService', function (identity, baseUrl, httpRequester)
-{
+app.factory('eventService', function (identity, baseUrl, httpRequester) {
     var url = baseUrl;
 
     return {
-        addEvent: function (event)
-        {
+        addEvent: function (event) {
             var user = identity.getUser();
             event.identity = user.token;
 

@@ -1,41 +1,19 @@
 "use strict";
 
-app.controller('ExcursionCtrl', function ($scope, $ionicPopup, $state, locationService, notifier) {
+app.controller('ExcursionCtrl', function ($scope, $ionicPopup, errorHandler, locationService, notifier) {
     var isInPrompt = false,
-        interval = {},
-        id = 102;
+        interval = {};
 
     function successGetPosition(position) {
         locationService.addLocation(position)
         .then(function (data) {
             if (data.length > 0) {
-                navigator.notification.beep(3);
-                notifyDistantUsers(data);
+                isInPrompt = locationService.notifyDistantUsers(data, interval, isInPrompt);
             }
         }, function (err) {
-            console.log(err);
+            errorHandler.handle(err);
         });
     };
-
-    function notifyDistantUsers(distances) {
-        for (var key in distances) {
-            if (!isInPrompt) {
-                var dist = distances[key];
-                isInPrompt = true;
-
-                notifier.confirm('distance', 'You are ' + parseFloat(dist.Distance).toFixed(2) + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map')
-                .then(function (data) {
-                    if (data) {
-                        clearInterval(interval);
-                        $state.go('app.map', { date: dist.Coordinate.Date, latitude: dist.Coordinate.Latitude, longitude: dist.Coordinate.Longitude });
-                    }
-                    else {
-                        isInPrompt = false;
-                    }
-                });
-            }
-        }
-    }
 
     $scope.startExcursion = function () {
         if (cordova.plugins && cordova.plugins.backgroundMode) {

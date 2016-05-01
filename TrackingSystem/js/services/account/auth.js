@@ -2,13 +2,13 @@
 
 app.factory('auth', function ($http, $q, baseUrl, httpRequester, objectToQueryString) {
     var url = baseUrl;
-    
+
     return {
         login: function (user) {
             user = user || {};
             user['grant_type'] = 'password';
 
-            return httpRequester.post(url + '/token',user);
+            return httpRequester.post(url + '/token', user);
         },
         register: function (user) {
             user = user || {};
@@ -18,9 +18,9 @@ app.factory('auth', function ($http, $q, baseUrl, httpRequester, objectToQuerySt
         getUserRoles: function (user) {
             user = user || {};
             user['grant_type'] = 'password';
-			user.identity = user.token;
-            
-            return httpRequester.getAuthorized(url + '/api/account/GetRoles',user.token);
+            user.identity = user.token;
+
+            return httpRequester.getAuthorized(url + '/api/account/GetRoles', user.token);
         }
     }
 })

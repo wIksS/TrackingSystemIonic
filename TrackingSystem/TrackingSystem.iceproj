@@ -201,9 +201,13 @@
     <Content Include="js\services\group\eventService.js" />
     <Content Include="js\services\group\groupService.js" />
     <Content Include="js\services\httpRequester.js" />
+    <Content Include="js\services\location\backgroundLocationService.js" />
     <Content Include="js\services\location\directionsService.js" />
     <Content Include="js\services\location\locationService.js" />
     <Content Include="js\services\modalService.js" />
+    <Content Include="js\services\notifier.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="js\services\objectToQueryString.js" />
     <Content Include="js\services\signalrService.js" />
     <Content Include="js\services\user\imageUploadService.js" />
