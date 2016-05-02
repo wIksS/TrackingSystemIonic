@@ -1,17 +1,8 @@
 "use strict";
 
-app.controller('GroupCtrl', function ($scope, identity, errorHandler, $state, $timeout, groupService, locationService, baseUrl) {
+app.controller('GroupCtrl', function ($scope, identity, errorHandler, $timeout, groupService, locationService, baseUrl, mapService) {
     identity.setScopeData($scope);
     $scope.url = baseUrl;
-
-    function goToMapLocation(location) {
-        $state.go('app.map',
-        {
-            date: location.Date,
-            latitude: location.Latitude,
-            longitude: location.Longitude
-        });
-    };
 
     groupService.getStudentsInGroup()
     .then(function (data) {
@@ -23,7 +14,7 @@ app.controller('GroupCtrl', function ($scope, identity, errorHandler, $state, $t
     $scope.showOnMap = function (id) {
         locationService.getLocation(id)
         .then(function (data) {
-            goToMapLocation(data);
+            mapService.goToMapLocation(data);
         }, function (err) {
             errorHandler.handle(err);
         });

@@ -4,7 +4,7 @@ app.controller('SettingsCtrl', function ($scope, $state, $timeout, identity, err
     identity.setScopeData($scope);
     $scope.min = 50;
     $scope.max = 5000;
-    $scope.currentDistance = user.group.MaxDistance;
+    $scope.currentDistance = $scope.user.group.MaxDistance;
 
     $scope.changeGroupDistance = function (newDistance) {
         groupService.changeGroupDistance(newDistance)

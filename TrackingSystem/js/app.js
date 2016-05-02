@@ -76,7 +76,7 @@ var app = angular.module('TrackingSystem', ['ionic', 'ngCordova'])
     .state('app.eventmap', {
         url: '/eventmap',
         templateUrl: 'templates/event.html',
-        controller: 'MapCtrl'
+        controller: 'EventCtrl'
     })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/home');

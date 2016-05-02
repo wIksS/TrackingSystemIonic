@@ -4,7 +4,7 @@ app.controller('RegisterCtrl', function ($scope, $state, auth, identity, errorHa
     $scope.register = function (user) {
         auth.register(user)
         .then(function (data) {
-            $state.go('app/home')
+            $state.go('app/home');
             auth.login(
             {
                 username: user.email,

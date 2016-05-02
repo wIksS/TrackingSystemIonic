@@ -29,6 +29,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
     function setSignalRGroup() {
         groupService.getGroup()
         .then(function (data) {
+            identity.setGroup(data);
             signalrService.addToRoom(data.Id);
         },
         function (err) {

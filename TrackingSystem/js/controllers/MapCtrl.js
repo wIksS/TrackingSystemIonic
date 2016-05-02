@@ -1,13 +1,6 @@
 "use strict";
 
-app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicModal, $timeout, locationService, eventService, modalService, directionsService) {
-    var mapModalId = modalService.getId(),
-        mapModalUrl = 'templates/event-create.html';
-
-    $scope.event = {};
-    $scope.event.hours = 1;
-    $scope.event.minutes = 1;
-
+app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicModal, $timeout, locationService, eventService, modalService, directionsService, mapService) {
     function findDirections(position) {
         directionsService.findRoute($scope.map,
             {
@@ -20,69 +13,11 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicM
             });
     }
 
-    function createMarker(position) {
-        return new google.maps.Marker({
-            position: position,
-            draggable: true,
-            animation: google.maps.Animation.DROP,
-            title: "Your position"
-        });
-    }
-
-    function addMarker(latitude, longitude, dontSetCenter) {
-        var position = new google.maps.LatLng(latitude, longitude),
-            marker = createMarker(position);
-
-        marker.setMap($scope.map);
-        $timeout(function () {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-        }, 1500);
-
-        if (!dontSetCenter) {
-            $scope.map.setCenter(position);
-        }
-    }
-
     $scope.mapCreated = function (map) {
         $scope.map = map;
-        addMarker($stateParams.latitude, $stateParams.longitude);
+        mapService.addMarker($scope.map, $stateParams.latitude, $stateParams.longitude);
         $scope.date = $stateParams.date;
         $scope.$apply();
-    };
-
-    $scope.eventMapCreated = function (map) {
-        modalService.create($scope, mapModalUrl, mapModalId);
-
-        $scope.map = map;
-        google.maps.event.addListener($scope.map, 'click', function (event) {
-            $scope.selectedCoord = event;
-            addMarker(event.latLng.lat(), event.latLng.lng(), true);
-            $timeout(function () {
-                modalService.open(mapModalId);
-            }, 1000);
-        });
-    }
-
-    $scope.closeModal = function () {
-        modalService.close(mapModalId);
-    };
-
-    $scope.uploadEvent = function (event) {
-        modalService.close(mapModalId);
-
-        var eventViewModel = {
-            date: new Date().toLocaleString(),
-            latitude: $scope.selectedCoord.latLng.lat(),
-            longitude: $scope.selectedCoord.latLng.lng(),
-            message: event.message
-        };
-
-        eventService.addEvent(eventViewModel)
-        .then(function (data) {
-            $scope.closeModal();
-        }, function (err) {
-            console.log(err);
-        });
     };
 
     $scope.centerOnMe = function () {
@@ -90,17 +25,18 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicM
             return;
         }
 
-        $scope.loading = $ionicLoading.show({
+        $scope.loading = $ionicLoading.show(
+        {
             content: 'Getting current location...',
             showBackdrop: false
         });
 
         navigator.geolocation.getCurrentPosition(function (pos) {
-            addMarker(pos.coords.latitude, pos.coords.longitude);
+            mapService.addMarker($scope.map, pos.coords.latitude, pos.coords.longitude);
             findDirections(pos);
             $ionicLoading.hide();
         }, function (error) {
-            alert('Unable to get location: ' + error.message);
+            notifier.alert('Unable to get location: ' + error.message);
         });
     }
 });

@@ -184,6 +184,7 @@
     <Content Include="JSLintNet.json" />
     <Content Include="js\app.js" />
     <Content Include="js\controllers\CameraCtrl.js" />
+    <Content Include="js\controllers\EventCtrl.js" />
     <Content Include="js\controllers\ExcursionCtrl.js" />
     <Content Include="js\controllers\GroupCtrl.js" />
     <Content Include="js\controllers\LoginCtrl.js" />
