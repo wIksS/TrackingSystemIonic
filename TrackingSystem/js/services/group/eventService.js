@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('eventService', function (identity, baseUrl, httpRequester) {
+app.factory('eventService', ['identity', 'baseUrl', 'httpRequester', function (identity, baseUrl, httpRequester) {
     var url = baseUrl;
 
     return {
@@ -8,4 +8,4 @@ app.factory('eventService', function (identity, baseUrl, httpRequester) {
             return httpRequester.postAuthorized(url + '/api/events', event);
         },
     }
-});
+}]);

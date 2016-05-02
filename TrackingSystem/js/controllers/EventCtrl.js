@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('EventCtrl', function ($scope, $ionicLoading, $ionicModal, $timeout, eventService, modalService, mapService) {
+app.controller('EventCtrl', ['$scope', '$timeout', 'eventService', 'modalService', 'mapService',
+function ($scope, $timeout, eventService, modalService, mapService) {
     var mapModalId = modalService.getId(),
         mapModalUrl = 'templates/event-create.html';
 
@@ -43,4 +44,4 @@ app.controller('EventCtrl', function ($scope, $ionicLoading, $ionicModal, $timeo
             errorHandler.handle(err);
         });
     };
-});
+}]);

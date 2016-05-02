@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('StudentGroupsCtrl', function ($scope, identity, errorHandler, notifier,studentsService, baseUrl) {
+app.controller('StudentGroupsCtrl', ['$scope', 'identity', 'errorHandler', 'notifier', 'studentsService', 'baseUrl',
+function ($scope, identity, errorHandler, notifier, studentsService, baseUrl) {
     var interval;
     identity.setScopeData($scope);
     $scope.username = $scope.user.username;
@@ -30,4 +31,4 @@ app.controller('StudentGroupsCtrl', function ($scope, identity, errorHandler, no
             errorHandler.handle(error)
         });
     }
-});
+}]);

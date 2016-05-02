@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('errorHandler', function (notifier) {
+app.factory('errorHandler', ['notifier', function (notifier) {
     var title = 'Error';
 
     return {
@@ -50,4 +50,4 @@ app.factory('errorHandler', function (notifier) {
             }
         }
     }
-});
+}]);

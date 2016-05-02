@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('backgroundLocationService', function (errorHandler, locationService) {
+app.factory('backgroundLocationService', ['errorHandler', 'locationService', function (errorHandler, locationService) {
     // This callback will be executed every time a
     // geolocation is recorded in the background.
     var addLocation = function (location) {
@@ -35,4 +35,4 @@ app.factory('backgroundLocationService', function (errorHandler, locationService
             });
         },
     }
-});
+}]);

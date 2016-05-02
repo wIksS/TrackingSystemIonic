@@ -1,6 +1,7 @@
 "use strict";
 
-app.factory('signalrService', function ($ionicPopup, $state, baseUrl, identity, notifier) {
+app.factory('signalrService', ['$ionicPopup', '$state', 'baseUrl', 'identity', 'notifier',
+function ($ionicPopup, $state, baseUrl, identity, notifier) {
     var connection = {},
         eventHubProxy = {};
 
@@ -50,4 +51,4 @@ app.factory('signalrService', function ($ionicPopup, $state, baseUrl, identity, 
             this.invokeServerFunc('JoinRoom', groupName, user.username);
         }
     }
-});
+}]);

@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('RegisterCtrl', function ($scope, $state, auth, identity, errorHandler) {
+app.controller('RegisterCtrl', ['$scope', '$state', 'auth', 'errorHandler',
+function ($scope, $state, auth, errorHandler) {
     $scope.register = function (user) {
         auth.register(user)
         .then(function (data) {
@@ -14,4 +15,4 @@ app.controller('RegisterCtrl', function ($scope, $state, auth, identity, errorHa
             errorHandler.handle(err);
         });
     }
-})
+}]);

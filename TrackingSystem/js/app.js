@@ -3,7 +3,8 @@
 var app = angular.module('TrackingSystem', ['ionic', 'ngCordova'])
 .constant('baseUrl', 'http://trackingsystemserverspringconf.apphb.com/')//http://trackingsystemserver.apphb.com')//http://localhost:63810')
 
-.run(function ($ionicPlatform, signalrService, locationService, notifier, backgroundLocationService) {
+.run(['$ionicPlatform', 'signalrService', 'locationService', 'notifier', 'backgroundLocationService',
+function ($ionicPlatform, signalrService, locationService, notifier, backgroundLocationService) {
     $ionicPlatform.ready(function () {
         signalrService.initConnection();
 
@@ -22,15 +23,15 @@ var app = angular.module('TrackingSystem', ['ionic', 'ngCordova'])
             StatusBar.styleDefault();
         }
     });
-})
+}])
 
-.config(function ($ionicConfigProvider) {
+.config(['$ionicConfigProvider', function ($ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom');
     $ionicConfigProvider.tabs.style('standard').position('bottom');
     $ionicConfigProvider.navBar.alignTitle('center').positionPrimaryButtons('left');
-})
+}])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $stateProvider
     .state('app', {
         url: '/app',
@@ -80,4 +81,4 @@ var app = angular.module('TrackingSystem', ['ionic', 'ngCordova'])
     })
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/home');
-});
+}]);

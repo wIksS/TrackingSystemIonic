@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('objectToQueryString', function () {
+app.factory('objectToQueryString', [function () {
     return {
         parse: function (obj) {
             var p = [];
@@ -12,4 +12,4 @@ app.factory('objectToQueryString', function () {
             return p.join('&');
         }
     }
-});
+}]);

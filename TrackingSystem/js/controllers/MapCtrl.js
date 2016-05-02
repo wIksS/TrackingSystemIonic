@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicModal, $timeout, locationService, eventService, modalService, directionsService, mapService) {
+app.controller('MapCtrl', ['$scope', '$ionicLoading', '$stateParams', '$timeout', 'locationService', 'eventService', 'modalService', 'directionsService', 'mapService',
+function ($scope, $ionicLoading, $stateParams, $timeout, locationService, eventService, modalService, directionsService, mapService) {
     function findDirections(position) {
         directionsService.findRoute($scope.map,
             {
@@ -39,4 +40,4 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicM
             notifier.alert('Unable to get location: ' + error.message);
         });
     }
-});
+}]);

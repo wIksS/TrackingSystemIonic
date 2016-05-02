@@ -1,12 +1,12 @@
 "use strict";
 
-app.controller('UsersCtrl', function ($scope, $location, auth, identity, baseUrl, errorHandler, usersService) {
+app.controller('UsersCtrl', ['$scope', '$location', 'auth', 'identity', 'baseUrl', 'errorHandler', 'usersService',
+function ($scope, $location, auth, identity, baseUrl, errorHandler, usersService) {
     $scope.adminRole = 'Admin';
     $scope.teacherRole = 'Teacher';
-
     identity.setScopeData($scope);
 
-    usersService.getUsers($scope.user.token)
+    usersService.getUsers()
     .then(function (data) {
         $scope.users = data;
         for (var i = 0; i < data.length; i++) {
@@ -52,4 +52,4 @@ app.controller('UsersCtrl', function ($scope, $location, auth, identity, baseUrl
             }
         );
     }
-});
+}]);

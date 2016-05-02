@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('usersService', function (baseUrl, httpRequester) {
+app.factory('usersService', ['baseUrl', 'httpRequester', function (baseUrl, httpRequester) {
     var url = baseUrl;
 
     return {
@@ -26,4 +26,4 @@ app.factory('usersService', function (baseUrl, httpRequester) {
             return httpRequester.getAuthorized(url + '/api/File/' + user);
         }
     }
-});
+}]);

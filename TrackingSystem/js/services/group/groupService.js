@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('groupService', function (baseUrl, httpRequester) {
+app.factory('groupService', ['baseUrl', 'httpRequester', function (baseUrl, httpRequester) {
     var url = baseUrl;
 
     return {
@@ -19,4 +19,4 @@ app.factory('groupService', function (baseUrl, httpRequester) {
             return httpRequester.customAuthorizedUrlData('POST', url + '/api/Group/RemoveFromGroup', data);
         }
     }
-});
+}]);

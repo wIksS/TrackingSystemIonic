@@ -1,6 +1,7 @@
 "use strict";
 
-app.factory('auth', function ($http, $q, baseUrl, httpRequester, objectToQueryString) {
+app.factory('auth', ['$http', '$q', 'baseUrl', 'httpRequester', 'objectToQueryString',
+function ($http, $q, baseUrl, httpRequester, objectToQueryString) {
     var url = baseUrl;
 
     return {
@@ -19,4 +20,4 @@ app.factory('auth', function ($http, $q, baseUrl, httpRequester, objectToQuerySt
             return httpRequester.getAuthorized(url + '/api/account/GetRoles');
         }
     }
-})
+}])

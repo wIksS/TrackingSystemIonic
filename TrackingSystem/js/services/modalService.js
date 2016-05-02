@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('modalService', function ($ionicModal) {
+app.factory('modalService', ['$ionicModal', function ($ionicModal) {
     var title = 'Error',
         uniqueId = 1,
         self = this;
@@ -28,4 +28,4 @@ app.factory('modalService', function ($ionicModal) {
             return uniqueId;
         }
     }
-});
+}]);

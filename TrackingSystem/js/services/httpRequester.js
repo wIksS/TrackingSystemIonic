@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('httpRequester', function (objectToQueryString, identity) {
+app.factory('httpRequester', ['objectToQueryString', 'identity', function (objectToQueryString, identity) {
     return {
         get: function (url) {
             return $.ajax({
@@ -68,4 +68,4 @@ app.factory('httpRequester', function (objectToQueryString, identity) {
             });
         },
     }
-});
+}]);

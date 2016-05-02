@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('studentsService', function (baseUrl, httpRequester) {
+app.factory('studentsService', ['baseUrl', 'httpRequester', function (baseUrl, httpRequester) {
     var url = baseUrl;
 
     return {
@@ -11,4 +11,4 @@ app.factory('studentsService', function (baseUrl, httpRequester) {
             return httpRequester.postAuthorized(url + '/api/students/' + userName);
         }
     }
-});
+}]);

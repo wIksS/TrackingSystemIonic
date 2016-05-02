@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('directionsService', function (notifier, locationService) {
+app.factory('directionsService', ['notifier', 'locationService', function (notifier, locationService) {
     return {
         findRoute: function (map, fromPosition, toPosition) {
             var directions = locationService.getGoogleMapsService(map);
@@ -20,4 +20,4 @@ app.factory('directionsService', function (notifier, locationService) {
             });
         },
     }
-});
+}]);

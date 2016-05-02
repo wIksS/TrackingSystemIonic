@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('GroupCtrl', function ($scope, identity, errorHandler, $timeout, groupService, locationService, baseUrl, mapService) {
+app.controller('GroupCtrl', ['$scope', 'identity', 'errorHandler', 'groupService', 'locationService', 'baseUrl', 'mapService',
+function ($scope, identity, errorHandler, groupService, locationService, baseUrl, mapService) {
     identity.setScopeData($scope);
     $scope.url = baseUrl;
 
@@ -34,4 +35,4 @@ app.controller('GroupCtrl', function ($scope, identity, errorHandler, $timeout, 
             errorHandler.handle(err);
         });
     };
-});
+}]);

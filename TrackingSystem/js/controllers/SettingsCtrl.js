@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('SettingsCtrl', function ($scope, $state, $timeout, identity, errorHandler, groupService) {
+app.controller('SettingsCtrl', ['$scope', '$state', '$timeout', 'identity', 'errorHandler', 'groupService',
+function ($scope, $state, $timeout, identity, errorHandler, groupService) {
     identity.setScopeData($scope);
     $scope.min = 50;
     $scope.max = 5000;
@@ -22,4 +23,4 @@ app.controller('SettingsCtrl', function ($scope, $state, $timeout, identity, err
             $state.go('app.home', {}, { reload: true });
         });
     }
-});
+}]);

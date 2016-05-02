@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('notifier', function ($ionicPopup) {
+app.factory('notifier', ['$ionicPopup', function ($ionicPopup) {
     var localNotifcationId = 1;
     // creating a closure because otherwise 
     // there will be code dublication
@@ -27,4 +27,4 @@ app.factory('notifier', function ($ionicPopup) {
             });
         }
     }
-});
+}]);

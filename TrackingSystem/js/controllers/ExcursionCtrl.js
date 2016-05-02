@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('ExcursionCtrl', function ($scope, $ionicPopup, errorHandler, locationService, notifier) {
+app.controller('ExcursionCtrl', ['$scope', 'errorHandler', 'locationService', 'notifier',
+function ($scope, errorHandler, locationService, notifier) {
     var isInPrompt = false,
         interval = {};
 
@@ -37,4 +38,4 @@ app.controller('ExcursionCtrl', function ($scope, $ionicPopup, errorHandler, loc
             cordova.plugins.backgroundMode.disable();
         }
     }
-});
+}]);

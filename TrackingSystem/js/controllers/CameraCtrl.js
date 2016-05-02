@@ -1,11 +1,12 @@
 "use strict";
 
-app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, identity, usersService, baseUrl, imageUploadService, notifier, errorHandler) {
+app.controller('CameraCtrl', ['$scope', '$cordovaCamera', 'identity', 'baseUrl', 'imageUploadService', 'notifier', 'errorHandler',
+function ($scope, $cordovaCamera, identity, baseUrl, imageUploadService, notifier, errorHandler) {
     $scope.url = baseUrl;
     $scope.data = { "ImageURI": "Select Image" };
     $scope.profilePic = null;
     identity.setScopeData($scope);
-    debugger;
+
     function uploadPhoto(imageURI) {
         $scope.$broadcast("uploadImg");
         $scope.profilePic = imageURI;
@@ -25,8 +26,8 @@ app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, id
     }
 
     // Retrieve image file location from specified source
-    $scope.getImage = function () {        
-        getPicture( navigator.camera.PictureSourceType.PHOTOLIBRARY);
+    $scope.getImage = function () {
+        getPicture(navigator.camera.PictureSourceType.PHOTOLIBRARY);
     }
 
     // Retrieve image file from camera
@@ -43,4 +44,4 @@ app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, id
             errorHandler.handle(error);
         });
     }
-})
+}])

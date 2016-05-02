@@ -1,6 +1,7 @@
 "use strict";
 
-app.factory('locationService', function (baseUrl, httpRequester,notifier, $state) {
+app.factory('locationService', ['baseUrl', 'httpRequester', 'notifier', '$state',
+function (baseUrl, httpRequester, notifier, $state) {
     var url = baseUrl;
 
     return {
@@ -8,7 +9,7 @@ app.factory('locationService', function (baseUrl, httpRequester,notifier, $state
             return httpRequester.postAuthorized(url + '/api/location', position.coords);
         },
         getLocation: function (id) {
-            return httpRequester.getAuthorized(url + '/api/location/' + id, user.token);
+            return httpRequester.getAuthorized(url + '/api/location/' + id);
         },
         getGoogleMapsService: function (map) {
             var directionsService = new google.maps.DirectionsService;
@@ -27,7 +28,7 @@ app.factory('locationService', function (baseUrl, httpRequester,notifier, $state
                 if (!isInPrompt) {
                     var dist = distances[key];
                     isInPrompt = true;
-                    
+
                     if (window.localNotification && localNotification) {
                         notifier.localNotification('You are ' + dist.Distance + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map');
                     }
@@ -48,4 +49,4 @@ app.factory('locationService', function (baseUrl, httpRequester,notifier, $state
             return isInPrompt;
         }
     }
-});
+}]);

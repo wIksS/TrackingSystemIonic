@@ -1,6 +1,7 @@
 "use strict";
 
-app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout, identity, modalService, auth, $state, errorHandler, locationService, groupService, $ionicHistory, usersService, signalrService) {
+app.controller('LoginCtrl', ['$scope', '$rootScope', 'identity', 'modalService', 'auth', '$state', 'errorHandler', 'locationService', 'groupService', '$ionicHistory', 'usersService', 'signalrService',
+function ($scope, $rootScope, identity, modalService, auth, $state, errorHandler, locationService, groupService, $ionicHistory, usersService, signalrService) {
     var profileModalUrl = 'templates/profile.html',
         loginModalUrl = 'templates/login.html';
 
@@ -76,4 +77,4 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
         identity.setScopeData($scope);
         $scope.isHome = toState.name.indexOf('home') > 0;
     });
-});
+}]);

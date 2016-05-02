@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('identity', function (errorHandler) {
+app.factory('identity', ['errorHandler', function (errorHandler) {
     function getUser() {
         var user =
         {
@@ -26,7 +26,7 @@ app.factory('identity', function (errorHandler) {
             sessionStorage.setItem('token', user.access_token);
             sessionStorage.setItem('username', user.userName);
         },
-        setUserRoles:setRoles,
+        setUserRoles: setRoles,
         getUser: getUser,
         logoutUser: function () {
             sessionStorage.removeItem('token');
@@ -56,4 +56,4 @@ app.factory('identity', function (errorHandler) {
             $scope.username = user.username;
         }
     }
-});
+}]);
