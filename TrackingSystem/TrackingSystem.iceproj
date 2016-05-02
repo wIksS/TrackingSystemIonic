@@ -204,6 +204,7 @@
     <Content Include="js\services\location\backgroundLocationService.js" />
     <Content Include="js\services\location\directionsService.js" />
     <Content Include="js\services\location\locationService.js" />
+    <Content Include="js\services\map\mapService.js" />
     <Content Include="js\services\modalService.js" />
     <Content Include="js\services\notifier.js">
       <SubType>Content</SubType>
@@ -734,6 +735,7 @@
     <Folder Include="js\services\account\" />
     <Folder Include="js\services\group\" />
     <Folder Include="js\services\location\" />
+    <Folder Include="js\services\map\" />
     <Folder Include="js\services\user\" />
     <Folder Include="lib\" />
     <Folder Include="lib\ionic\" />

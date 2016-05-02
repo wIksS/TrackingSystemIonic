@@ -8,17 +8,7 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicM
     $scope.event.hours = 1;
     $scope.event.minutes = 1;
 
-    function toggleBounce() {
-        if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-        }
-        else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-    }
-
     function findDirections(position) {
-        debugger;
         directionsService.findRoute($scope.map,
             {
                 lat: position.coords.latitude,
@@ -44,7 +34,9 @@ app.controller('MapCtrl', function ($scope, $ionicLoading, $stateParams, $ionicM
             marker = createMarker(position);
 
         marker.setMap($scope.map);
-        marker.addListener('click', toggleBounce);
+        $timeout(function () {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }, 1500);
 
         if (!dontSetCenter) {
             $scope.map.setCenter(position);
