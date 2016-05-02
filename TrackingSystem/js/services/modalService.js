@@ -18,7 +18,6 @@ app.factory('modalService', function ($ionicModal) {
             });
         },
         open: function (id) {
-            debugger;
             self[id].show();
         },
         close: function (id) {

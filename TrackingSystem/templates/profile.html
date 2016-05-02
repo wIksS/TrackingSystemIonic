@@ -9,7 +9,7 @@
         <div id="profile-bg"></div>
         <div id="content">
             <div id="profile-info">
-                <img class="profile-image" sb-load="onLoadImg()" src="{{url}}/api/File/{{username}}">
+                <img class="profile-image" src="{{url}}/api/File/{{user.username}}">
                 <h3 id="profile-name">{{username}}</h3>
                 <span id="profile-description">
                     <img src="images/camera.jpg" height="50px" ng-click="takeImage()" />
@@ -17,6 +17,6 @@
                 </span>
             </div>
         </div>
-        <img id="hidden-image" image-upload class="hidden" src="{{profilePic}}">
+        <img id="hidden-image" image-upload test="sendPhotoToServer" send-img-to-server="sendPhotoToServer" class="hidden" src="{{profilePic}}">
     </ion-content>
 </ion-modal-view>

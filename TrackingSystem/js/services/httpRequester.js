@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('httpRequester', function (objectToQueryString) {
+app.factory('httpRequester', function (objectToQueryString, identity) {
     return {
         get: function (url) {
             return $.ajax({
@@ -9,11 +9,11 @@ app.factory('httpRequester', function (objectToQueryString) {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             })
         },
-        getAuthorized: function (url, identity) {
+        getAuthorized: function (url) {
             return $.ajax({
                 method: "GET",
                 url: url,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + identity }
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + identity.getUser().token }
             })
         },
         post: function (url, data) {
@@ -24,12 +24,12 @@ app.factory('httpRequester', function (objectToQueryString) {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             })
         },
-        postAuthorized: function (url, data) {
+        postAuthorized: function (url) {
             return $.ajax({
                 method: "POST",
                 url: url,
                 data: objectToQueryString.parse(data),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + data.identity },
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + identity.getUser().token },
             })
         },
         custom: function (type, url, data) {
@@ -45,15 +45,27 @@ app.factory('httpRequester', function (objectToQueryString) {
                 method: type,
                 url: url,
                 data: objectToQueryString.parse(data),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + data.identity }
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + identity.getUser().token }
             })
         },
         customAuthorizedUrlData: function (type, url, data) {
             return $.ajax({
                 method: type,
                 url: url + '?' + objectToQueryString.parse(data),
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + data.identity }
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + identity.getUser().token }
             })
-        }
+        },
+        customAuthorizedUrlData: function (type, url, data) {
+            return $.ajax({
+                method: type,
+                url: url + '?' + objectToQueryString.parse(data),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', "Authorization": "Bearer " + identity.getUser().token }
+            })
+        },
+        customAuthorizedOnObject: function (object, url) {
+            return object.ajax(url, {
+                headers: { "Authorization": "Bearer " + identity.getUser().token }
+            });
+        },
     }
 });

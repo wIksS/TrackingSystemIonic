@@ -197,7 +197,6 @@
     <Content Include="js\directives\map.js" />
     <Content Include="js\services\account\auth.js" />
     <Content Include="js\services\account\identity.js" />
-    <Content Include="js\services\account\usersService.js" />
     <Content Include="js\services\errorHandler.js" />
     <Content Include="js\services\group\eventService.js" />
     <Content Include="js\services\group\groupService.js" />
@@ -214,6 +213,9 @@
     <Content Include="js\services\signalrService.js" />
     <Content Include="js\services\user\imageUploadService.js" />
     <Content Include="js\services\user\studentsService.js" />
+    <Content Include="js\services\user\usersService.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
     <Content Include="lib\ionic\fonts\ionicons.eot" />

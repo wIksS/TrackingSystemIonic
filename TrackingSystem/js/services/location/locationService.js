@@ -1,18 +1,13 @@
 "use strict";
 
-app.factory('locationService', function (identity, baseUrl, httpRequester,notifier, $state) {
+app.factory('locationService', function (baseUrl, httpRequester,notifier, $state) {
     var url = baseUrl;
 
     return {
         addLocation: function (position) {
-            var user = identity.getUser();
-            position.coords.identity = user.token;
-
             return httpRequester.postAuthorized(url + '/api/location', position.coords);
         },
         getLocation: function (id) {
-            var user = identity.getUser();
-
             return httpRequester.getAuthorized(url + '/api/location/' + id, user.token);
         },
         getGoogleMapsService: function (map) {

@@ -42,8 +42,10 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
     $scope.doLogin = function (user) {
         auth.login(user)
         .then(function (data) {
-            identity.loginUser(data)
+            identity.loginUser(data);
+            auth.getUserRoles(identity.getUser())
             .then(function (data) {
+                identity.setUserRoles(data);
                 setSignalRGroup();
                 identity.setScopeData($scope);
                 $scope.closeModal($scope.loginModalId);
@@ -72,7 +74,6 @@ app.controller('LoginCtrl', function ($scope, $rootScope, $ionicModal, $timeout,
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         identity.setScopeData($scope);
-        $scope.username = $scope.user.username;
         $scope.isHome = toState.name.indexOf('home') > 0;
     });
 });

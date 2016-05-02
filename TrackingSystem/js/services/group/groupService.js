@@ -1,28 +1,20 @@
 "use strict";
 
-app.factory('groupService', function (identity, baseUrl, httpRequester) {
+app.factory('groupService', function (baseUrl, httpRequester) {
     var url = baseUrl;
 
     return {
         getGroup: function () {
-            var user = identity.getUser();
-
-            return httpRequester.getAuthorized(url + '/api/Group/GetGroup', user.token);
+            return httpRequester.getAuthorized(url + '/api/Group/GetGroup');
         },
         changeGroupDistance: function (newDistance) {
-            var user = identity.getUser();
-            var data = { identity: user.token };
-
-            return httpRequester.postAuthorized(url + '/api/Group/?newDistance=' + newDistance, data);
+            return httpRequester.postAuthorized(url + '/api/Group/?newDistance=' + newDistance);
         },
         getStudentsInGroup: function () {
-            var user = identity.getUser();
-
-            return httpRequester.getAuthorized(url + '/api/Group/GetStudentsInGroup', user.token);
+            return httpRequester.getAuthorized(url + '/api/Group/GetStudentsInGroup');
         },
         removeFromGroup: function (id) {
-            var user = identity.getUser();
-            var data = { 'id': id, 'identity': user.token };
+            var data = { 'id': id };
 
             return httpRequester.customAuthorizedUrlData('POST', url + '/api/Group/RemoveFromGroup', data);
         }

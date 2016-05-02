@@ -5,19 +5,9 @@ app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, id
     $scope.data = { "ImageURI": "Select Image" };
     $scope.profilePic = null;
     identity.setScopeData($scope);
-    // this object is used to set directive functions so that they 
-    // can be use from the controller because the scope is different
-    $scope.uploadImgDirective = {};
-
-    $scope.sendPhotoToServer = function (jqueryImg) {
-        var imageBlob = jqueryImg.imageBlob();
-        imageUploadService.upload(imageBlob, $scope.uploadImgDirective.onUploadComplete, function (error) {
-            errorHandler.handle(error);
-        });
-    }
-
+    debugger;
     function uploadPhoto(imageURI) {
-        $scope.uploadImgDirective.uploadImgJqueryOnUpload();
+        $scope.$broadcast("uploadImg");
         $scope.profilePic = imageURI;
         $scope.$apply();
     }
@@ -42,5 +32,15 @@ app.controller('CameraCtrl', function ($scope, $cordovaCamera, $ionicLoading, id
     // Retrieve image file from camera
     $scope.takeImage = function () {
         getPicture(navigator.camera.PictureSourceType.CAMERA);
+    }
+
+    $scope.sendPhotoToServer = function (jqueryImg) {
+        var imageBlob = jqueryImg.imageBlob();
+        imageUploadService.upload(imageBlob)
+        .then(function () {
+            $scope.$broadcast("uploadImgComplete", $scope.url, $scope.user.username);
+        }, function (error) {
+            errorHandler.handle(error);
+        });
     }
 })

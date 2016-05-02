@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory('identity', function (auth, errorHandler) {
+app.factory('identity', function (errorHandler) {
     function getUser() {
         var user =
         {
@@ -12,26 +12,21 @@ app.factory('identity', function (auth, errorHandler) {
         return user;
     };
 
-    function setRoles() {
-        return auth.getUserRoles(getUser())
-        .then(function (data) {
-            var roles = {};
-            for (var i = 0; i < data.length; i++) {
-                roles[data[i]] = true;
-            }
+    function setRoles(roles) {
+        var rolesObj = {};
+        for (var i = 0; i < roles.length; i++) {
+            rolesObj[roles[i]] = true;
+        }
 
-            sessionStorage.setItem('roles', JSON.stringify(roles));
-        }, function (err) {
-            errorHandler.handle(error);
-        });
+        sessionStorage.setItem('roles', JSON.stringify(rolesObj));
     };
 
     return {
         loginUser: function (user) {
             sessionStorage.setItem('token', user.access_token);
             sessionStorage.setItem('username', user.userName);
-            return setRoles();
         },
+        setUserRoles:setRoles,
         getUser: getUser,
         logoutUser: function () {
             sessionStorage.removeItem('token');

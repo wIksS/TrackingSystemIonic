@@ -20,7 +20,7 @@ app.controller('UsersCtrl', function ($scope, $location, auth, identity, baseUrl
     });
 
     $scope.addRole = function (currentUser, roleName) {
-        usersService.addRole(currentUser, roleName, $scope.user.token)
+        usersService.addRole(currentUser, roleName)
         .then(function (data) {
             currentUser[roleName] = true;
             $scope.$apply();
@@ -30,7 +30,7 @@ app.controller('UsersCtrl', function ($scope, $location, auth, identity, baseUrl
     }
 
     $scope.deleteRole = function (currentUser, roleName) {
-        usersService.deleteRole(currentUser, roleName, $scope.user.token)
+        usersService.deleteRole(currentUser, roleName)
             .then(function (data) {
                 currentUser[roleName] = false;
                 $scope.$apply();
@@ -41,7 +41,7 @@ app.controller('UsersCtrl', function ($scope, $location, auth, identity, baseUrl
     }
 
     $scope.deleteUser = function (currentUser) {
-        usersService.deleteUser(currentUser, user.token)
+        usersService.deleteUser(currentUser)
             .then(function (data) {
                 var index = $scope.users.indexOf(currentUser);
                 if (index > -1) {
