@@ -216,7 +216,6 @@
     <Content Include="js\services\user\usersService.js">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
     <Content Include="lib\ionic\fonts\ionicons.eot" />
     <Content Include="lib\ionic\fonts\ionicons.svg" />
