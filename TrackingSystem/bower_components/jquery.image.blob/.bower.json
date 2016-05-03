@@ -1,0 +1,14 @@
+{
+  "name": "jquery.image.blob",
+  "homepage": "https://github.com/CoeJoder/jquery.image.blob",
+  "_release": "bce284912c",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "bce284912c9cf65584b0c9fda48389cc97713437"
+  },
+  "_source": "https://github.com/CoeJoder/jquery.image.blob.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/CoeJoder/jquery.image.blob.git",
+  "_direct": true
+}

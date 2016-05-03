@@ -1,0 +1,13 @@
+{
+  "name": "cordova",
+  "version": "3.3.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mgcrea/bower-cordova.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
