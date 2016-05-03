@@ -4,6 +4,15 @@ app.factory('locationService', ['baseUrl', 'httpRequester', 'notifier', '$state'
 function (baseUrl, httpRequester, notifier, $state) {
     var url = baseUrl;
 
+    function alertForDistantUser(distanceModel, onConfirmMessage) {
+        navigator.notification.beep(3);
+        var message = 'You are ' + parseFloat(distanceModel.Distance).toFixed(2) + 'meters away from ' + distanceModel.User.UserName + '\n Click OK to show on map';
+        notifier.localNotification(message);
+
+        notifier.confirm('distance', message)
+        .then(onConfirmMessage);
+    }
+
     return {
         addLocation: function (position) {
             return httpRequester.postAuthorized(url + '/api/location', position.coords);
@@ -23,21 +32,18 @@ function (baseUrl, httpRequester, notifier, $state) {
             };
         },
         notifyDistantUsers: function (distances, interval, isInPrompt) {
-            navigator.notification.beep(3);
             for (var key in distances) {
                 if (!isInPrompt) {
-                    var dist = distances[key];
+                    var distanceModel = distances[key];
                     isInPrompt = true;
-
-                    if (window.localNotification && localNotification) {
-                        notifier.localNotification('You are ' + dist.Distance + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map');
-                    }
-
-                    notifier.confirm('distance', 'You are ' + parseFloat(dist.Distance).toFixed(2) + 'meters away from ' + dist.User.UserName + '\n Click OK to show on map')
-                    .then(function (data) {
+                    alertForDistantUser(distanceModel, function (data) {
                         if (data) {
                             clearInterval(interval);
-                            $state.go('app.map', { date: dist.Coordinate.Date, latitude: dist.Coordinate.Latitude, longitude: dist.Coordinate.Longitude });
+                            $state.go('app.map', {
+                                date: distanceModel.Coordinate.Date,
+                                latitude: distanceModel.Coordinate.Latitude,
+                                longitude: distanceModel.Coordinate.Longitude
+                            });
                         }
                         else {
                             isInPrompt = false;

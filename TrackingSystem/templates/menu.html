@@ -20,38 +20,38 @@
                     Home
                 </a>
 
-                <a ng-hide="isLogged" menu-close ng-click="openModal(loginModalId)" class="item item-icon-left">
+                <a ng-hide="user.isLogged" menu-close ng-click="openModal(loginModalId)" class="item item-icon-left">
                     <i class="icon ion-person"></i>
                     Login
                 </a>
-                <a ng-hide="isLogged" nav-transition="slide-left-right" menu-close href="#/app/register" class="item item-icon-left">
+                <a ng-hide="user.isLogged" nav-transition="slide-left-right" menu-close href="#/app/register" class="item item-icon-left">
                     <i class="icon ion-person-add"></i>
                     Register
                 </a>
 
                 <!--Teacher area-->
-                <a ng-hide="!isTeacher" menu-close href="#/app/group" class="item item-icon-left">
+                <a ng-hide="!user.isTeacher" menu-close href="#/app/group" class="item item-icon-left">
                     <i class="icon ion-ios-eye"></i>
                     Group
                 </a>
 
-                <a ng-hide="!isTeacher" menu-close href="#/app/students" class="item item-icon-left">
+                <a ng-hide="!user.isTeacher" menu-close href="#/app/students" class="item item-icon-left">
                     <i class="icon ion-person-stalker"></i>
                     Students
                 </a>
 
-                <a ng-hide="!isTeacher" menu-close href="#/app/eventmap" class="item item-icon-left">
+                <a ng-hide="!user.isTeacher" menu-close href="#/app/eventmap" class="item item-icon-left">
                     <i class="icon ion-email"></i>
                     Event
                 </a>
 
-                <a ng-hide="!isTeacher" menu-close href="#/app/settings" class="item item-icon-left">
+                <a ng-hide="!user.isTeacher" menu-close href="#/app/settings" class="item item-icon-left">
                     <i class="icon ion-android-settings"></i>                    
                     Settings
                 </a>
 
                 <!--Admin area-->
-                <a ng-hide="!isAdmin" menu-close href="#/app/users" class="item item-icon-left">
+                <a ng-hide="!user.isAdmin" menu-close href="#/app/users" class="item item-icon-left">
                     <i class="icon ion-person-stalker"></i>
                     Users
                 </a>
@@ -60,9 +60,9 @@
     </ion-side-menu>
 </ion-side-menus>
 
-<ion-tabs ng-if="!isLogged" class="tabs-dark tabs-icon-only" ng-hide="!isHome">
+<ion-tabs ng-if="!user.isLogged" class="tabs-dark tabs-icon-only" ng-hide="!isHome">
 
-    <ion-tab title="Login" ng-hide="!isLogged" icon-on="ion-person" ng-click="openModal(loginModalId)" icon-off="ion-person">
+    <ion-tab title="Login" ng-hide="!user.isLogged" icon-on="ion-person" ng-click="openModal(loginModalId)" icon-off="ion-person">
         <!-- Tab 1 content -->
     </ion-tab>
 
@@ -77,10 +77,10 @@
 </ion-tabs>
 
 
-<ion-tabs ng-if="isLogged" class="tabs-dark tabs-icon-only" ng-hide="!isHome">
+<ion-tabs ng-if="user.isLogged" class="tabs-dark tabs-icon-only" ng-hide="!isHome">
 
 
-    <ion-tab title="Profile" ng-hide="isLogged" icon-on="ion-person" ng-click="openModal(profileModalId)" icon-off="ion-person">
+    <ion-tab title="Profile" ng-hide="user.isLogged" icon-on="ion-person" ng-click="openModal(profileModalId)" icon-off="ion-person">
         <!-- Tab 1 content -->
     </ion-tab>
 

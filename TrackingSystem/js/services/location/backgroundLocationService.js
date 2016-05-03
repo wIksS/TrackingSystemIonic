@@ -7,21 +7,16 @@ app.factory('backgroundLocationService', ['errorHandler', 'locationService', fun
         locationService.addLocation(position)
         .then(function (data) {
             if (data.length > 0) {
-                locationService.notifyDistantUsers(data, undefined, false);
+                locationService.notifyDistantUsers(data);
             }
-        }, function (err) {
-            errorHandler.handle(error);
-        });
+        }, errorHandler.handle);
 
         navigator.notification.beep(3);
     };
 
     return {
         configure: function (backgroundLocation) {
-            backgroundLocation.configure(addLocation, function (err) {
-                errorHandler.handle(err);
-            },
-            {
+            backgroundLocation.configure(addLocation, errorHandler.handle, {
                 desiredAccuracy: 10,
                 stationaryRadius: 20,
                 distanceFilter: 1,

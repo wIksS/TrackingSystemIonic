@@ -1,9 +1,8 @@
 "use strict";
 
-app.factory('identity', ['errorHandler', function (errorHandler) {
+app.factory('identity', [function () {
     function getUser() {
-        var user =
-        {
+        var user = {
             username: sessionStorage.getItem('username'),
             token: sessionStorage.getItem('token'),
             group: JSON.parse(sessionStorage.getItem('group'))
@@ -47,13 +46,13 @@ app.factory('identity', ['errorHandler', function (errorHandler) {
         setGroup: function (group) {
             sessionStorage.setItem('group', JSON.stringify(group));
         },
-        setScopeData: function ($scope) {
+        getUserData: function () {
             var user = this.getUser();
-            $scope.isLogged = this.isLogged();
-            $scope.isAdmin = this.isAdmin();
-            $scope.isTeacher = this.isInRole('Teacher');
-            $scope.user = user || {};
-            $scope.username = user.username;
+            user.isLogged = this.isLogged();
+            user.isAdmin = this.isAdmin();
+            user.isTeacher = this.isInRole('Teacher');
+
+            return user;
         }
     }
 }]);

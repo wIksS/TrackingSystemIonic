@@ -11,8 +11,6 @@ function ($scope, $state, auth, errorHandler) {
                 username: user.email,
                 password: user.password
             });
-        }, function (err) {
-            errorHandler.handle(err);
-        });
+        }, errorHandler.handle);
     }
 }]);

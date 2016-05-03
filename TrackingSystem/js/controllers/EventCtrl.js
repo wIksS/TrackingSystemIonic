@@ -2,12 +2,13 @@
 
 app.controller('EventCtrl', ['$scope', '$timeout', 'eventService', 'modalService', 'mapService',
 function ($scope, $timeout, eventService, modalService, mapService) {
-    var mapModalId = modalService.getId(),
-        mapModalUrl = 'templates/event-create.html';
+    var mapModalId = modalService.getId();
+    var mapModalUrl = 'templates/event-create.html';
 
-    $scope.event = {};
-    $scope.event.hours = 1;
-    $scope.event.minutes = 1;
+    $scope.event = {
+        hours: 1,
+        minutes:1
+    };
 
     $scope.eventMapCreated = function (map) {
         modalService.create($scope, mapModalUrl, mapModalId);
@@ -40,8 +41,6 @@ function ($scope, $timeout, eventService, modalService, mapService) {
         eventService.addEvent(eventModel)
         .then(function (data) {
             $scope.closeModal();
-        }, function (err) {
-            errorHandler.handle(err);
-        });
+        }, errorHandler.handle);
     };
 }]);

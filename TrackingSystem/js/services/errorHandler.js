@@ -3,51 +3,39 @@
 app.factory('errorHandler', ['notifier', function (notifier) {
     var title = 'Error';
 
+    function checkModelState(err) {
+        var modelState = err.ModelState;
+        if (modelState) {
+            for (var model in modelState) {
+                for (var i = 0; i < modelState[model].length; i++) {
+                    notifier.alert(title, modelState[model][i]);
+                }
+            }
+        }
+    }
+
     return {
         handle: function (err) {
+            var message = '';
             console.log(err);
-            var modelState = err.ModelState;
-            if (modelState) {
-                var isNotified = true;
-                for (var model in modelState) {
-                    for (var i = 0; i < modelState[model].length; i++) {
-                        isNotified = false;
-                        notifier.alert(title, modelState[model][i]);
-                    }
-                }
+            checkModelState(err);
 
-                if (isNotified) {
-                    if (err.message) {
-                        notifier.alert(title, err.message);
-                    }
-                    else if (err.Message) {
-                        notifier.alert(title, err.Message);
-                    }
-                    else if (err.error_description) {
-                        notifier.alert(title, err.error_description);
-                    }
+            message = err.message || err.Message;
+            if (!message) {
+                message = err.error_description;
+            }
+
+            if (!message && err.responseText) {
+                var response = JSON.parse(err.responseText);
+                if (response && response.error_description) {
+                    message = response.error_description;
+                }
+                else {
+                    message = err.responseText;
                 }
             }
-            else {
-                if (err.message) {
-                    notifier.alert(title, err.message);
-                }
-                else if (err.Message) {
-                    notifier.alert(title, err.Message);
-                }
-                else if (err.error_description) {
-                    notifier.alert(title, err.error_description);
-                }
-                else if (err.responseText) {
-                    var response = JSON.parse(err.responseText);
-                    if (response && response.error_description) {
-                        notifier.alert(title, response.error_description);
-                    }
-                    else {
-                        notifier.alert(title, err.responseText);
-                    }
-                }
-            }
+
+            notifier.alert(title, message);
         }
     }
 }]);

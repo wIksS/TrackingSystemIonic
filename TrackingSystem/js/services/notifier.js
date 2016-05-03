@@ -19,12 +19,14 @@ app.factory('notifier', ['$ionicPopup', function ($ionicPopup) {
         alert: notify("alert"),
         confirm: notify("confirm"),
         localNotification: function (message) {
-            localNotifcationId++;
-            localNotification.add(localNotifcationId, {
-                seconds: 0,
-                message: message,
-                badge: 1
-            });
+            if (window.localNotification && localNotification) {
+                localNotifcationId++;
+                localNotification.add(localNotifcationId, {
+                    seconds: 0,
+                    message: message,
+                    badge: 1
+                });
+            }
         }
     }
 }]);

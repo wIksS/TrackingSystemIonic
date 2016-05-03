@@ -24,7 +24,7 @@ app.factory('httpRequester', ['objectToQueryString', 'identity', function (objec
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             })
         },
-        postAuthorized: function (url) {
+        postAuthorized: function (url, data) {
             return $.ajax({
                 method: "POST",
                 url: url,

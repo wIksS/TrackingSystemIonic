@@ -3,9 +3,11 @@
 app.controller('CameraCtrl', ['$scope', '$cordovaCamera', 'identity', 'baseUrl', 'imageUploadService', 'notifier', 'errorHandler',
 function ($scope, $cordovaCamera, identity, baseUrl, imageUploadService, notifier, errorHandler) {
     $scope.url = baseUrl;
-    $scope.data = { "ImageURI": "Select Image" };
+    $scope.data = {
+        "ImageURI": "Select Image"
+    };
     $scope.profilePic = null;
-    identity.setScopeData($scope);
+    $scope.user = identity.getUserData();
 
     function uploadPhoto(imageURI) {
         $scope.$broadcast("uploadImg");
@@ -16,8 +18,7 @@ function ($scope, $cordovaCamera, identity, baseUrl, imageUploadService, notifie
     function getPicture(picSourceType) {
         navigator.camera.getPicture(uploadPhoto, function (message) {
             notifier.alert('Get picture failed');
-        },
-        {
+        },{
             quality: 30,
             destinationType: navigator.camera.DestinationType.FILE_URI,
             sourceType: picSourceType,
@@ -40,8 +41,6 @@ function ($scope, $cordovaCamera, identity, baseUrl, imageUploadService, notifie
         imageUploadService.upload(imageBlob)
         .then(function () {
             $scope.$broadcast("uploadImgComplete", $scope.url, $scope.user.username);
-        }, function (error) {
-            errorHandler.handle(error);
-        });
+        }, errorHandler.handle);
     }
 }])

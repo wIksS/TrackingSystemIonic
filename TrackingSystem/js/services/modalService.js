@@ -18,10 +18,14 @@ app.factory('modalService', ['$ionicModal', function ($ionicModal) {
             });
         },
         open: function (id) {
-            self[id].show();
+            if (self[id]) {
+                self[id].show();
+            }            
         },
         close: function (id) {
-            self[id].hide();
+            if (self[id]) {
+                self[id].hide();
+            }            
         },
         getId: function () {
             uniqueId++;

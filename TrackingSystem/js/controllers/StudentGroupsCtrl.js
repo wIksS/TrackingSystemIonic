@@ -3,7 +3,7 @@
 app.controller('StudentGroupsCtrl', ['$scope', 'identity', 'errorHandler', 'notifier', 'studentsService', 'baseUrl',
 function ($scope, identity, errorHandler, notifier, studentsService, baseUrl) {
     var interval;
-    identity.setScopeData($scope);
+    $scope.user = identity.getUserData();
     $scope.username = $scope.user.username;
     $scope.url = baseUrl;
 
@@ -11,9 +11,7 @@ function ($scope, identity, errorHandler, notifier, studentsService, baseUrl) {
     .then(function (data) {
         $scope.students = data;
         $scope.$apply();
-    }, function (err) {
-        errorHandler.handle(error);
-    });
+    }, errorHandler.handle);
 
     $scope.addStudentToGroup = function (currentStudent) {
         studentsService.addStudentToGroup(currentStudent.UserName)
@@ -27,8 +25,6 @@ function ($scope, identity, errorHandler, notifier, studentsService, baseUrl) {
             }
 
             notifier.alert('Added student to group');
-        }, function (err) {
-            errorHandler.handle(error)
-        });
+        }, errorHandler.handle);
     }
 }]);

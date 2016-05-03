@@ -1,17 +1,15 @@
 "use strict";
 
-app.controller('MapCtrl', ['$scope', '$ionicLoading', '$stateParams', '$timeout', 'locationService', 'eventService', 'modalService', 'directionsService', 'mapService',
-function ($scope, $ionicLoading, $stateParams, $timeout, locationService, eventService, modalService, directionsService, mapService) {
+app.controller('MapCtrl', ['$scope', '$ionicLoading', '$stateParams', '$timeout', 'errorHandler', 'locationService', 'eventService', 'modalService', 'directionsService', 'mapService',
+function ($scope, $ionicLoading, $stateParams, $timeout, errorHandler, locationService, eventService, modalService, directionsService, mapService) {
     function findDirections(position) {
-        directionsService.findRoute($scope.map,
-            {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            },
-            {
-                lat: parseFloat($stateParams.latitude),
-                lng: parseFloat($stateParams.longitude)
-            });
+        directionsService.findRoute($scope.map, {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        }, {
+            lat: parseFloat($stateParams.latitude),
+            lng: parseFloat($stateParams.longitude)
+        });
     }
 
     $scope.mapCreated = function (map) {
@@ -36,8 +34,6 @@ function ($scope, $ionicLoading, $stateParams, $timeout, locationService, eventS
             mapService.addMarker($scope.map, pos.coords.latitude, pos.coords.longitude);
             findDirections(pos);
             $ionicLoading.hide();
-        }, function (error) {
-            notifier.alert('Unable to get location: ' + error.message);
-        });
+        }, errorHandler.handle);
     }
 }]);

@@ -2,37 +2,31 @@
 
 app.controller('GroupCtrl', ['$scope', 'identity', 'errorHandler', 'groupService', 'locationService', 'baseUrl', 'mapService',
 function ($scope, identity, errorHandler, groupService, locationService, baseUrl, mapService) {
-    identity.setScopeData($scope);
+    $scope.user = identity.getUserData();
     $scope.url = baseUrl;
 
     groupService.getStudentsInGroup()
     .then(function (data) {
         $scope.students = data;
-    }, function (err) {
-        errorHandler.handle(err);
-    });
+    }, errorHandler.handle);
 
     $scope.showOnMap = function (id) {
         locationService.getLocation(id)
         .then(function (data) {
             mapService.goToMapLocation(data);
-        }, function (err) {
-            errorHandler.handle(err);
-        });
+        }, errorHandler.handle);
     };
 
     // remove specific user from the scope so 
     // it can be rendered without him in the UI
-    $scope.removeFromGroup = function (currentStudent) {
-        groupService.removeFromGroup(currentStudent.UserName)
+    $scope.removeFromGroup = function (selectedStudent) {
+        groupService.removeFromGroup(selectedStudent.UserName)
         .then(function (data) {
-            var index = $scope.students.indexOf(currentStudent);
+            var index = $scope.students.indexOf(selectedStudent);
             if (index > -1) {
                 $scope.students.splice(index, 1);
                 $scope.$apply();
             }
-        }, function (err) {
-            errorHandler.handle(err);
-        });
+        }, errorHandler.handle);
     };
 }]);

@@ -8,7 +8,7 @@
                 <div class="col col-20">Delete </div>
             </div>
 
-            <a class="item  row row-center" href="#" ng-repeat="user in users">
+            <a class="item  row row-center" ng-repeat="user in users">
                 <h2 class="col col-40 ">{{user.UserName}}</h2>
                 <button ng-if="user[adminRole]" class="col col-20 button button-icon icon ion-checkmark balanced" ng-click="deleteRole(user, adminRole)"></button>
                 <button ng-if="!user[adminRole]" class="col col-20 button button-icon icon ion-close-circled" ng-click="addRole(user, adminRole)"></button>

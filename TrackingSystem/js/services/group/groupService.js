@@ -14,7 +14,9 @@ app.factory('groupService', ['baseUrl', 'httpRequester', function (baseUrl, http
             return httpRequester.getAuthorized(url + '/api/Group/GetStudentsInGroup');
         },
         removeFromGroup: function (id) {
-            var data = { 'id': id };
+            var data = {
+                'id': id
+            };
 
             return httpRequester.customAuthorizedUrlData('POST', url + '/api/Group/RemoveFromGroup', data);
         }

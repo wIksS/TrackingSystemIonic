@@ -1,55 +1,46 @@
 "use strict";
 
-app.controller('UsersCtrl', ['$scope', '$location', 'auth', 'identity', 'baseUrl', 'errorHandler', 'usersService',
-function ($scope, $location, auth, identity, baseUrl, errorHandler, usersService) {
-    $scope.adminRole = 'Admin';
-    $scope.teacherRole = 'Teacher';
-    identity.setScopeData($scope);
+app.controller('UsersCtrl', ['$scope', '$location', 'auth', 'identity', 'baseUrl', 'errorHandler', 'usersService', 'config',
+function ($scope, $location, auth, identity, baseUrl, errorHandler, usersService, config) {
+    $scope.adminRole = config.adminRole;
+    $scope.teacherRole = config.teacherRole;
+    $scope.user = identity.getUserData();
 
     usersService.getUsers()
     .then(function (data) {
-        $scope.users = data;
-        for (var i = 0; i < data.length; i++) {
-            data[i][$scope.adminRole] = data[i].Roles.indexOf($scope.adminRole) >= 0;
-            data[i][$scope.teacherRole] = data[i].Roles.indexOf($scope.teacherRole) >= 0;
-        }
+        $scope.users = data.map(function (user) {
+            user[$scope.adminRole] = user.Roles.indexOf($scope.adminRole) >= 0;
+            user[$scope.teacherRole] = user.Roles.indexOf($scope.teacherRole) >= 0;
+
+            return user;
+        });
 
         $scope.$apply();
-    }, function (err) {
-        errorHandler.handle(err);
-    });
+    }, errorHandler.handle);
 
-    $scope.addRole = function (currentUser, roleName) {
-        usersService.addRole(currentUser, roleName)
+    $scope.addRole = function (selectedUser, roleName) {
+        usersService.addRole(selectedUser, roleName)
         .then(function (data) {
-            currentUser[roleName] = true;
+            selectedUser[roleName] = true;
             $scope.$apply();
-        }, function (err) {
-            errorHandler.handle(err);
-        });
+        }, errorHandler.handle);
     }
 
-    $scope.deleteRole = function (currentUser, roleName) {
-        usersService.deleteRole(currentUser, roleName)
-            .then(function (data) {
-                currentUser[roleName] = false;
-                $scope.$apply();
-            }, function (err) {
-                errorHandler.handle(err);
-            }
-        );
+    $scope.deleteRole = function (selectedUser, roleName) {
+        usersService.deleteRole(selectedUser, roleName)
+        .then(function (data) {
+            selectedUser[roleName] = false;
+            $scope.$apply();
+        }, errorHandler.handle);
     }
 
-    $scope.deleteUser = function (currentUser) {
-        usersService.deleteUser(currentUser)
-            .then(function (data) {
-                var index = $scope.users.indexOf(currentUser);
-                if (index > -1) {
-                    $scope.users.splice(index, 1);
-                }
-            }, function (err) {
-                errorHandler.handle(err);
+    $scope.deleteUser = function (selectedUser) {
+        usersService.deleteUser(selectedUser)
+        .then(function (data) {
+            var index = $scope.users.indexOf(selectedUser);
+            if (index > -1) {
+                $scope.users.splice(index, 1);
             }
-        );
+        }, errorHandler.handle);
     }
 }]);

@@ -2,7 +2,12 @@
 
 var app = angular.module('TrackingSystem', ['ionic', 'ngCordova'])
 .constant('baseUrl', 'http://trackingsystemserverspringconf.apphb.com/')//http://trackingsystemserver.apphb.com')//http://localhost:63810')
-
+.constant('config', {
+    minDefaultDistance: 50,
+    maxDefaultDistance: 5000,
+    adminRole: 'Admin',
+    teacherRole: 'Teacher'
+})
 .run(['$ionicPlatform', 'signalrService', 'locationService', 'notifier', 'backgroundLocationService',
 function ($ionicPlatform, signalrService, locationService, notifier, backgroundLocationService) {
     $ionicPlatform.ready(function () {

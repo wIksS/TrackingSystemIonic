@@ -2,8 +2,8 @@
 
 app.controller('ExcursionCtrl', ['$scope', 'errorHandler', 'locationService', 'notifier',
 function ($scope, errorHandler, locationService, notifier) {
-    var isInPrompt = false,
-        interval = {};
+    var isInPrompt = false;
+    var interval = {};
 
     function successGetPosition(position) {
         locationService.addLocation(position)
@@ -11,9 +11,7 @@ function ($scope, errorHandler, locationService, notifier) {
             if (data.length > 0) {
                 isInPrompt = locationService.notifyDistantUsers(data, interval, isInPrompt);
             }
-        }, function (err) {
-            errorHandler.handle(err);
-        });
+        }, errorHandler.handle);
     };
 
     $scope.startExcursion = function () {
@@ -24,8 +22,7 @@ function ($scope, errorHandler, locationService, notifier) {
         interval = setInterval(function () {
             navigator.geolocation.getCurrentPosition(successGetPosition, function (error) {
                 notifier.alert("Can't get your location! Cannot connect to GPS satellite.");
-            },
-            {
+            }, {
                 enableHighAccuracy: true
             });
         }, 3000);
